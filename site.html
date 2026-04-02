@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6p3l Skript Hub | Minecraft Skripts</title>
+  <title>6p3l's Skript Hub | Minecraft Developer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
@@ -22,6 +22,7 @@
       --muted: #8a85a0;
       --green: #4ade80;
       --green-dim: rgba(74, 222, 128, 0.15);
+      --gradient: linear-gradient(135deg, var(--lav), #6a3fbf);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,6 +33,7 @@
       font-family: 'Outfit', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
     /* ─── BG NOISE ─── */
@@ -46,723 +48,641 @@
       z-index: 0;
     }
 
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-    /* ─── HEADER ─── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(13,13,20,.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .header-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px; gap: 20px;
-    }
-    .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-    .logo-icon {
-      width: 38px; height: 38px;
-      background: linear-gradient(135deg, var(--lav), #6a3fbf);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; color: #fff;
-      box-shadow: 0 0 16px var(--lav-glow);
-    }
-    .logo-text { font-size: 1.25rem; font-weight: 700; color: var(--text); letter-spacing: -.02em; }
-    .logo-text em { font-style: normal; color: var(--lav); }
-
-    nav { display: flex; align-items: center; gap: 4px; }
-    .nav-btn {
-      background: none; border: none; color: var(--muted);
-      font-family: 'Outfit', sans-serif; font-size: .95rem; font-weight: 500;
-      padding: 8px 16px; border-radius: 8px; cursor: pointer;
-      transition: color .2s, background .2s;
-    }
-    .nav-btn:hover { color: var(--text); background: var(--lav-dim); }
-    .nav-btn.active { color: var(--lav); background: var(--lav-dim); }
-
-    /* ─── PAGES ─── */
-    .page { display: none; }
-    .page.active { display: block; }
-
-    /* ─── HOME HERO ─── */
-    .hero {
-      text-align: center;
-      padding: 80px 24px 60px;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--lav-dim); border: 1px solid var(--border-active);
-      border-radius: 99px; padding: 6px 16px;
-      font-size: .8rem; color: var(--lav-light); font-weight: 500;
-      margin-bottom: 28px; letter-spacing: .04em; text-transform: uppercase;
-    }
-    .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      font-weight: 800; letter-spacing: -.04em;
-      line-height: 1.05; margin-bottom: 20px;
-      background: linear-gradient(135deg, #fff 30%, var(--lav-light));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .hero p {
-      font-size: 1.1rem; color: var(--muted); max-width: 560px;
-      margin: 0 auto 40px; line-height: 1.65;
-    }
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: linear-gradient(135deg, var(--lav), #6a3fbf);
-      color: #fff; border: none; border-radius: 12px;
-      padding: 14px 30px; font-family: 'Outfit', sans-serif;
-      font-size: 1rem; font-weight: 600; cursor: pointer;
-      box-shadow: 0 4px 24px var(--lav-glow);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--lav-glow); }
-
-    /* ─── STATS BAR ─── */
-    .stats-bar {
-      display: flex; gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      margin: 0 0 70px;
-    }
-    .stat {
-      flex: 1; background: var(--card);
-      padding: 22px 20px; text-align: center;
-    }
-    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--lav); letter-spacing: -.03em; }
-    .stat-label { font-size: .8rem; color: var(--muted); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; }
-
-    /* ─── SKRIPTS PAGE ─── */
-    .skripts-header {
-      padding: 50px 0 30px;
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .skripts-header h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.03em; }
-    .skripts-header p { color: var(--muted); font-size: .95rem; }
-
-    .toolbar {
-      display: flex; gap: 12px; flex-wrap: wrap;
-      align-items: center; margin-bottom: 28px;
-    }
-    .search-wrap {
-      flex: 1; min-width: 220px; position: relative;
-    }
-    .search-wrap i {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-      color: var(--muted); font-size: .9rem; pointer-events: none;
-    }
-    .search-wrap input {
-      width: 100%;
-      background: var(--card); border: 1px solid var(--border);
-      color: var(--text); font-family: 'Outfit', sans-serif; font-size: .95rem;
-      padding: 11px 16px 11px 40px;
-      border-radius: 10px; outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .search-wrap input:focus {
-      border-color: var(--lav);
-      box-shadow: 0 0 0 3px var(--lav-dim);
-    }
-    .search-wrap input::placeholder { color: var(--muted); }
-
-    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-btn {
-      background: var(--card); border: 1px solid var(--border);
-      color: var(--muted); font-family: 'Outfit', sans-serif;
-      font-size: .85rem; font-weight: 500;
-      padding: 9px 18px; border-radius: 99px; cursor: pointer;
-      transition: all .2s;
-    }
-    .filter-btn:hover { border-color: var(--lav); color: var(--lav); }
-    .filter-btn.active { background: var(--lav); border-color: var(--lav); color: #fff; }
-
-    /* ─── GRID ─── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px; margin-bottom: 60px;
+    .container { 
+      max-width: 1000px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+      position: relative; 
+      z-index: 1; 
     }
 
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      transition: transform .25s, border-color .25s, box-shadow .25s;
-      cursor: pointer; display: flex; flex-direction: column;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-active);
-      box-shadow: 0 12px 40px rgba(0,0,0,.4), 0 0 0 1px var(--lav-dim);
-    }
-    .card-head {
-      padding: 22px 22px 16px;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(155,114,212,.07), transparent);
-    }
-    .card-head h3 {
-      font-size: 1.15rem; font-weight: 700; color: var(--text);
-      margin-bottom: 5px; letter-spacing: -.02em;
-    }
-    .card-head span {
-      font-size: .75rem; color: var(--muted);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .card-body { padding: 18px 22px; flex: 1; }
-    .card-body p { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-bottom: 16px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 7px; }
-    .tag {
-      font-size: .72rem; font-weight: 600; letter-spacing: .04em;
-      text-transform: uppercase; padding: 4px 10px; border-radius: 99px;
-      background: var(--lav-dim); color: var(--lav-light);
-      border: 1px solid rgba(155,114,212,.25);
-    }
-    .tag.green { background: var(--green-dim); color: var(--green); border-color: rgba(74,222,128,.25); }
-    .card-foot {
-      padding: 16px 22px;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .rating { display: flex; align-items: center; gap: 6px; font-size: .9rem; font-weight: 600; color: var(--lav-light); }
-    .rating i { color: #f5c542; font-size: .85rem; }
-    .dl-btn {
-      display: flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, var(--lav), #6a3fbf);
-      color: #fff; border: none; border-radius: 9px;
-      padding: 9px 18px; font-family: 'Outfit', sans-serif;
-      font-size: .85rem; font-weight: 600; cursor: pointer;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .dl-btn:hover { transform: scale(1.04); box-shadow: 0 4px 16px var(--lav-glow); }
-
-    .no-results {
-      grid-column: 1/-1; text-align: center;
-      padding: 60px 20px; color: var(--muted);
-    }
-    .no-results i { font-size: 2.5rem; margin-bottom: 16px; display: block; opacity: .4; }
-    .no-results p { font-size: 1rem; }
-
-    /* ─── SCRIPT DETAIL PAGE ─── */
-    .detail-back {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--muted); background: none; border: none;
-      font-family: 'Outfit', sans-serif; font-size: .9rem;
-      cursor: pointer; padding: 6px 0; margin: 32px 0 0;
-      transition: color .2s;
-    }
-    .detail-back:hover { color: var(--lav); }
-    .detail-wrap { padding: 30px 0 60px; }
-    .detail-top {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; flex-wrap: wrap;
-      gap: 20px; margin-bottom: 40px;
-    }
-    .detail-title h1 {
-      font-size: 2.4rem; font-weight: 800; letter-spacing: -.04em;
-      background: linear-gradient(135deg, #fff, var(--lav-light));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-      margin-bottom: 8px;
-    }
-    .detail-title .meta {
-      font-size: .8rem; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .detail-dl {
-      display: flex; align-items: center; gap: 10px;
-      background: linear-gradient(135deg, var(--lav), #6a3fbf);
-      color: #fff; border: none; border-radius: 12px;
-      padding: 14px 28px; font-family: 'Outfit', sans-serif;
-      font-size: 1rem; font-weight: 700; cursor: pointer;
-      box-shadow: 0 4px 24px var(--lav-glow);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .detail-dl:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--lav-glow); }
-
-    .detail-grid { display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
-    @media (max-width: 768px) { .detail-grid { grid-template-columns: 1fr; } }
-
-    .detail-main {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 30px;
-    }
-    .detail-main h2 {
-      font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em;
-      margin-bottom: 14px; color: var(--lav-light);
-    }
-    .detail-main p { color: var(--muted); line-height: 1.75; margin-bottom: 24px; font-size: .95rem; }
-    .detail-main pre {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 20px; overflow-x: auto;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .8rem; color: var(--lav-light);
-      line-height: 1.7; margin-bottom: 24px;
-    }
-    .detail-main .comment { color: #5a5a7a; }
-    .detail-main .keyword { color: var(--lav); }
-    .detail-main .string { color: var(--green); }
-    .detail-main .number { color: #f5c542; }
-
-    .detail-side { display: flex; flex-direction: column; gap: 16px; }
-    .side-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 22px;
-    }
-    .side-card h3 { font-size: .85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
-    .side-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .9rem; }
-    .side-row:last-child { border-bottom: none; }
-    .side-row span:first-child { color: var(--muted); }
-    .side-row span:last-child { color: var(--text); font-weight: 600; }
-
-    /* ─── SUPPORT PAGE ─── */
-    .support-hero {
-      padding: 60px 0 50px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 50px;
-    }
-    .support-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--lav-dim); border: 1px solid var(--border-active);
-      border-radius: 99px; padding: 6px 16px;
-      font-size: .75rem; color: var(--lav-light); font-weight: 600;
-      margin-bottom: 20px; letter-spacing: .06em; text-transform: uppercase;
-    }
-    .support-hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800; letter-spacing: -.04em; margin-bottom: 14px;
-    }
-    .support-hero p { color: var(--muted); font-size: 1rem; line-height: 1.65; max-width: 520px; }
-
-    .contact-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-bottom: 50px; }
-    .contact-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 28px;
-      transition: border-color .2s, transform .2s;
-    }
-    .contact-card:hover { border-color: var(--border-active); transform: translateY(-4px); }
-    .contact-icon {
-      width: 50px; height: 50px; border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; margin-bottom: 18px;
-    }
-    .contact-icon.discord { background: rgba(88,101,242,.18); color: #5865f2; }
-    .contact-icon.email { background: var(--lav-dim); color: var(--lav-light); }
-    .contact-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -.02em; }
-    .contact-card p { color: var(--muted); font-size: .88rem; line-height: 1.6; margin-bottom: 18px; }
-    .copy-btn {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--bg2); border: 1px solid var(--border);
-      color: var(--text); font-family: 'Outfit', sans-serif;
-      font-size: .85rem; font-weight: 600; padding: 10px 18px;
-      border-radius: 9px; cursor: pointer; width: 100%;
-      justify-content: center; transition: all .2s;
-    }
-    .copy-btn:hover { border-color: var(--lav); color: var(--lav); }
-    .copy-btn.copied { background: var(--green-dim); border-color: var(--green); color: var(--green); }
-
-    .faq { margin-bottom: 60px; }
-    .faq h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 24px; }
-    .faq-item {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden; margin-bottom: 10px;
-    }
-    .faq-q {
-      width: 100%; background: none; border: none;
-      color: var(--text); font-family: 'Outfit', sans-serif;
-      font-size: .95rem; font-weight: 600;
-      padding: 18px 22px; text-align: left;
-      display: flex; justify-content: space-between; align-items: center;
-      cursor: pointer; transition: background .2s;
-    }
-    .faq-q:hover { background: var(--lav-dim); }
-    .faq-q i { color: var(--lav); transition: transform .3s; font-size: .8rem; }
-    .faq-q.open i { transform: rotate(180deg); }
-    .faq-a {
-      max-height: 0; overflow: hidden;
-      transition: max-height .35s ease, padding .3s ease;
-      padding: 0 22px;
-      color: var(--muted); font-size: .9rem; line-height: 1.7;
-    }
-    .faq-a.open { max-height: 300px; padding: 0 22px 18px; }
-
-    /* ─── TOAST ─── */
-    .toast {
-      position: fixed; bottom: 30px; right: 30px; z-index: 9999;
-      background: var(--card); border: 1px solid var(--border-active);
-      border-radius: 12px; padding: 14px 20px;
-      display: flex; align-items: center; gap: 10px;
-      font-size: .9rem; font-weight: 500;
-      box-shadow: 0 8px 32px rgba(0,0,0,.4);
-      transform: translateY(80px); opacity: 0;
-      transition: transform .3s ease, opacity .3s ease;
-      pointer-events: none;
-    }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    .toast i { color: var(--green); }
-
-    /* ─── RATING MODAL ─── */
-    .rating-modal {
+    /* ─── NAVIGATION ─── */
+    nav {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      right: 0;
+      background: rgba(13,13,20,.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .logo i {
+      font-size: 1.5rem;
+      color: var(--lav);
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-link {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: .9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .nav-link:hover {
+      border-color: var(--lav);
+      color: var(--lav);
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 100px 0;
+    }
+    section:first-of-type { padding-top: 140px; }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      text-align: center;
+    }
+    .avatar-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+    .avatar {
+      width: 140px;
+      height: 140px;
+      background: var(--gradient);
+      border-radius: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
+      font-size: 3rem;
+      color: #fff;
+      box-shadow: 0 0 40px var(--lav-glow);
+      position: relative;
+      overflow: hidden;
     }
-    .rating-modal.active {
-      opacity: 1;
-      pointer-events: all;
+    .avatar::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,.1), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
     }
-    .rating-content {
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+    .status-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      background: var(--green);
+      border: 3px solid var(--bg);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff, var(--lav-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero .tagline {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+    .hero .bio {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .social-link {
+      width: 48px;
+      height: 48px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--muted);
+      transition: all .3s;
+      cursor: pointer;
+    }
+    .social-link:hover {
+      border-color: var(--lav);
+      color: var(--lav);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--lav-glow);
+    }
+
+    /* ─── STATS ─── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 30px;
-      width: 90%;
-      max-width: 400px;
+      padding: 24px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
+      transition: transform .3s, border-color .3s;
     }
-    .rating-modal.active .rating-content {
-      transform: translateY(0);
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-active);
     }
-    .rating-content h3 {
-      margin-bottom: 20px;
-      color: var(--text);
-      font-size: 1.4rem;
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--lav);
+      margin-bottom: 8px;
     }
-    .stars {
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      margin-bottom: 25px;
-    }
-    .star {
-      font-size: 2rem;
-      color: #ddd;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-    .star.selected,
-    .star.hover {
-      color: #f5c542;
-    }
-    .rating-btn {
-      background: linear-gradient(135deg, var(--lav), #6a3fbf);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .rating-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px var(--lav-glow);
+    .stat-label {
+      font-size: .85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
     }
 
+    /* ─── SKRIPTS SECTION ─── */
+    .skripts-section {
+      background: var(--bg2);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lav-dim);
+      border: 1px solid var(--border-active);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: .75rem;
+      color: var(--lav-light);
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff, var(--lav-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-header p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .contact-bar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 24px;
+      color: var(--text);
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .3s;
+    }
+    .contact-btn:hover {
+      border-color: var(--lav);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--lav-glow);
+    }
+    .contact-btn i {
+      font-size: 1.2rem;
+    }
+    .contact-btn.discord i { color: #5865f2; }
+    .contact-btn.email i { color: var(--lav); }
+
+    .skripts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .skript-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all .3s;
+      cursor: pointer;
+    }
+    .skript-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-active);
+      box-shadow: 0 12px 32px rgba(0,0,0,.3);
+    }
+    .skript-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .skript-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #fff;
+    }
+    .skript-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .skript-desc {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    /* ─── ABOUT SECTION ─── */
+    .about-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+    }
+    .about-content h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--lav-light);
+      margin-bottom: 20px;
+    }
+    .about-content p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .skill-tag {
+      background: var(--lav-dim);
+      border: 1px solid var(--border);
+      color: var(--lav-light);
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      transition: color .2s;
+    }
+    .footer-link:hover {
+      color: var(--lav);
+    }
+    .footer-text {
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      background: var(--card);
+      border: 1px solid var(--border-active);
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .9rem;
+      font-weight: 500;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: transform .3s ease, opacity .3s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast i { color: var(--green); }
+
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 640px) {
-      .stats-bar { flex-direction: column; gap: 0; }
-      .toolbar { flex-direction: column; }
-      .search-wrap { min-width: unset; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .skripts-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="wrap header-inner">
-    <div class="logo" onclick="navigate('home')">
-      <div class="logo-icon"><i class="fas fa-cubes"></i></div>
-      <span class="logo-text">6p3l <em>Skript</em> Hub</span>
+<!-- NAVIGATION -->
+<nav>
+  <div class="container nav-inner">
+    <div class="logo">
+      <i class="fas fa-cube"></i>
+      <span>6p3l's Skript Hub</span>
     </div>
-    <nav>
-      <button class="nav-btn active" data-page="home" onclick="navigate('home')">Home</button>
-      <button class="nav-btn" data-page="skripts" onclick="navigate('skripts')">Skripts</button>
-      <button class="nav-btn" data-page="support" onclick="navigate('support')">Support</button>
-    </nav>
+    <div class="nav-links">
+      <button class="nav-link" onclick="scrollToSection('hero')">Home</button>
+      <button class="nav-link" onclick="scrollToSection('skripts')">Skripts</button>
+      <button class="nav-link" onclick="scrollToSection('about')">About</button>
+    </div>
   </div>
-</header>
+</nav>
 
 <!-- TOAST -->
-<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toast-msg">Copied!</span></div>
-
-<!-- RATING MODAL -->
-<div class="rating-modal" id="ratingModal">
-  <div class="rating-content">
-    <h3>Rate this Skript</h3>
-    <div class="stars" id="starsContainer">
-      <span class="star" data-value="1">&#9733;</span>
-      <span class="star" data-value="2">&#9733;</span>
-      <span class="star" data-value="3">&#9733;</span>
-      <span class="star" data-value="4">&#9733;</span>
-      <span class="star" data-value="5">&#9733;</span>
-    </div>
-    <button class="rating-btn" id="submitRating">Submit Rating</button>
-  </div>
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toast-msg">Copied!</span>
 </div>
 
-<!-- ══════════════ HOME PAGE ══════════════ -->
-<div class="page active" id="page-home">
-  <div class="wrap">
-    <section class="hero">
-      <div class="hero-badge"><i class="fas fa-bolt"></i> Free & Open Source</div>
-      <h1>Premium Skripts<br/>for Your Server</h1>
-      <p>Carefully crafted Minecraft Skripts — easy to install, fully configurable, and built for every server type.</p>
-      <button class="hero-cta" onclick="navigate('skripts')">
-        <i class="fas fa-download"></i> Browse Skripts
+<!-- HERO SECTION -->
+<section id="hero" class="hero">
+  <div class="container">
+    <div class="avatar-container">
+      <div class="avatar">
+        <i class="fas fa-code"></i>
+        <div class="status-badge"></div>
+      </div>
+    </div>
+    
+    <h1>6p3l</h1>
+    <div class="tagline">Minecraft Skript Developer</div>
+    
+    <div class="bio">
+      Passionate Minecraft developer specializing in custom Skript solutions. 
+      Creating high-quality, efficient, and feature-rich scripts that enhance 
+      the multiplayer experience since 2020.
+    </div>
+
+    <div class="social-links">
+      <div class="social-link" onclick="openDiscord()">
+        <i class="fab fa-discord"></i>
+      </div>
+      <div class="social-link" onclick="copyEmail()">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <div class="social-link" onclick="showToast('GitHub coming soon!')">
+        <i class="fab fa-github"></i>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">20+</div>
+        <div class="stat-label">Custom Skripts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1,000+</div>
+        <div class="stat-label">Downloads</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Servers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4.9★</div>
+        <div class="stat-label">Avg Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKRIPTS SECTION -->
+<section id="skripts" class="skripts-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">
+        <i class="fas fa-download"></i> Available Now
+      </div>
+      <h2>Skript Collection</h2>
+      <p>All skripts downloadable in discord!</p>
+    </div>
+
+    <div class="contact-bar">
+      <button class="contact-btn discord" onclick="openDiscord()">
+        <i class="fab fa-discord"></i>
+        <span>Join Discord</span>
       </button>
-    </section>
-
-    <div class="stats-bar">
-      <div class="stat"><div class="stat-num" id="downloadsCount">0</div><div class="stat-label">Downloads</div></div>
-      <div class="stat"><div class="stat-num" id="skriptsCount">0</div><div class="stat-label">Skripts</div></div>
-      <div class="stat"><div class="stat-num" id="avgRating">0.0</div><div class="stat-label">Avg Rating</div></div>
+      <button class="contact-btn email" onclick="copyEmail()">
+        <i class="fas fa-envelope"></i>
+        <span>Copy Email</span>
+      </button>
     </div>
+
+    <div class="skripts-grid" id="skripts-grid"></div>
   </div>
-</div>
+</section>
 
-<!-- ══════════════ SKRIPTS PAGE ══════════════ -->
-<div class="page" id="page-skripts">
-  <div class="wrap">
-    <div class="skripts-header">
-      <h2>All Skripts</h2>
-      <p id="skriptsCountHeader">0 skripts available — click any card to view details & download</p>
+<!-- ABOUT SECTION -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <h2>About Me</h2>
+      <p>Learn more about my journey and expertise</p>
     </div>
 
-    <div class="toolbar">
-      <div class="search-wrap">
-        <i class="fas fa-search"></i>
-        <input type="text" id="search-input" placeholder="Search skripts…" oninput="filterSkripts()" />
-      </div>
-      <div class="filters" id="filter-bar">
-        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
-        <button class="filter-btn" data-filter="Utility" onclick="setFilter('Utility')">Utility</button>
-        <button class="filter-btn" data-filter="Moderation" onclick="setFilter('Moderation')">Moderation</button>
-        <button class="filter-btn" data-filter="Economy" onclick="setFilter('Economy')">Economy</button>
-        <button class="filter-btn" data-filter="Fun" onclick="setFilter('Fun')">Fun</button>
-        <button class="filter-btn" data-filter="Admin" onclick="setFilter('Admin')">Admin</button>
-      </div>
-    </div>
+    <div class="about-content">
+      <h3>Hello! I'm 6p3l 👋</h3>
+      <p>
+        I'm a dedicated Minecraft developer with a passion for creating custom server experiences 
+        through the power of Skript. My journey began in 2020 when I discovered how Skript could 
+        transform ordinary servers into extraordinary communities.
+      </p>
+      <p>
+        With over 3 years of experience, I've developed solutions for various server types - from 
+        survival and factions to creative and minigame networks. My focus is always on creating 
+        efficient, bug-free, and highly customizable scripts that server owners can easily integrate 
+        and modify to fit their unique vision.
+      </p>
+      <p>
+        Every skript I create is thoroughly tested, documented, and comes with ongoing support. 
+        I believe in the power of community and am always here to help fellow server owners bring 
+        their ideas to life.
+      </p>
 
-    <div class="grid" id="skripts-grid"></div>
-  </div>
-</div>
-
-<!-- ══════════════ DETAIL PAGE ══════════════ -->
-<div class="page" id="page-detail">
-  <div class="wrap">
-    <button class="detail-back" onclick="navigate('skripts')"><i class="fas fa-arrow-left"></i> Back to Skripts</button>
-    <div class="detail-wrap" id="detail-content"></div>
-  </div>
-</div>
-
-<!-- ══════════════ SUPPORT PAGE ══════════════ -->
-<div class="page" id="page-support">
-  <div class="wrap">
-    <section class="support-hero">
-      <div class="support-badge"><i class="fas fa-headset"></i> Support</div>
-      <h1>We've got you<br/>covered</h1>
-      <p>Need help setting up a skript, found a bug, or have a suggestion? Reach out through Discord or email — we reply fast.</p>
-    </section>
-
-    <div class="contact-cards">
-      <!-- DISCORD -->
-      <div class="contact-card">
-        <div class="contact-icon discord"><i class="fab fa-discord"></i></div>
-        <h3>Join our Discord</h3>
-        <p>Get real-time help, share your server, or chat with other Skript devs in our community.</p>
-        <button class="copy-btn" id="discord-btn" onclick="copyDiscord()">
-          <i class="fab fa-discord"></i> Copy Discord Link
-        </button>
-      </div>
-
-      <!-- EMAIL -->
-      <div class="contact-card">
-        <div class="contact-icon email"><i class="fas fa-envelope"></i></div>
-        <h3>Send us an Email</h3>
-        <p>For business enquiries, skript requests, or anything that's better handled over email.</p>
-        <button class="copy-btn" id="email-btn" onclick="copyEmail()">
-          <i class="fas fa-copy"></i> Copy Email Address
-        </button>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="faq">
-      <h2>Frequently Asked Questions</h2>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          How do I install a Skript? <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="faq-a">
-          Download the .sk file, place it inside your server's <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/plugins/Skript/scripts/</code> folder, then run <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/skript reload all</code> in-game or from the console. Make sure the Skript plugin is installed first.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          What Minecraft version do these work on? <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="faq-a">
-          All skripts are tested on Spigot/Paper 1.19–1.20.x. Most skripts will also work on 1.16+ with the latest version of the Skript plugin installed.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Are these skripts free to use? <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="faq-a">
-          Yes — every skript on this hub is completely free to use on any server. You're also free to modify them as you see fit. Attribution is appreciated but not required.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          I found a bug — how do I report it? <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="faq-a">
-          The fastest way is to open a ticket in our Discord server. You can also email us with the skript name, your server version, and a description of the issue.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Can I request a custom skript? <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="faq-a">
-          Absolutely! Drop your idea in the Discord #skript-requests channel or send us an email with a detailed description of what you need. We'll let you know if it's something we can add.
-        </div>
+      <div class="skills-list">
+        <span class="skill-tag">Skript</span>
+        <span class="skill-tag">Server Setup</span>
+        <span class="skill-tag">Custom Commands</span>
+        <span class="skill-tag">GUI Systems</span>
+        <span class="skill-tag">Database Integration</span>
+        <span class="skill-tag">Performance Optimization</span>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <a href="#" class="footer-link" onclick="openDiscord(); return false;">Discord</a>
+      <a href="#" class="footer-link" onclick="copyEmail(); return false;">Email</a>
+      <a href="#" class="footer-link" onclick="showToast('GitHub coming soon!'); return false;">GitHub</a>
+    </div>
+    <div class="footer-text">
+      © 2024 6p3l's Skript Hub. All rights reserved.
+    </div>
+  </div>
+</footer>
 
 <script>
-// ─── DATA ───────────────────────────────────────────────────────────────────
+// ─── SKRIPTS DATA ───────────────────────────────────────────────────────────────
+const SKRIPTS = [
+  { name: 'Afk Pool', icon: 'fa-water', desc: 'Configurable AFK Pool that gives rewards to players who stay in it for a certain amount of time.' },
+  { name: 'Announcements', icon: 'fa-bullhorn', desc: 'Premade announcements system with customizable messages and timing.' },
+  { name: 'Autocompressor', icon: 'fa-compress', desc: 'Automatically compresses items into another item (specifically made for GenPvP servers).' },
+  { name: 'Bans', icon: 'fa-ban', desc: 'Custom bans skript with tempbans, mutes, and comprehensive moderation tools.' },
+  { name: 'Clearchat', icon: 'fa-eraser', desc: 'Clears chat with an announcement message for better chat management.' },
+  { name: 'Discord', icon: 'fa-discord', desc: 'Custom /discord command to display server Discord invite.' },
+  { name: 'FirstJoin', icon: 'fa-door-open', desc: 'Teleports player to spawn coordinates on their first join for better onboarding.' },
+  { name: 'Gm', icon: 'fa-gamepad', desc: 'Aliases for /gamemode creative, survival, adventure, and spectator modes.' },
+  { name: 'Jail', icon: 'fa-lock', desc: 'Custom /jail command that restricts players for a certain amount of time without banning them.' },
+  { name: 'JoinLeave', icon: 'fa-sign-in-alt', desc: 'Custom messages for joining and leaving the server with full customization.' },
+  { name: 'Keyall', icon: 'fa-key', desc: 'Custom commands for giving everybody a specified key to a crate (ExcellentCrates suitable).' },
+  { name: 'Lb', icon: 'fa-trophy', desc: 'Auto-leaderboard refresh system (compatible with AJ Leaderboards).' },
+  { name: 'Mutechat', icon: 'fa-volume-mute', desc: 'Mutes chat for every default player so that they cannot talk.' },
+  { name: 'Reports', icon: 'fa-flag', desc: 'Custom /report command and /reportlist for staff to see who got reported and for what reason.' },
+  { name: 'Soulbound', icon: 'fa-heart', desc: 'Custom command for making items return after player death.' },
+  { name: 'Ss', icon: 'fa-desktop', desc: 'Command for screensharing players, freezing them to join a Discord channel.' },
+  { name: 'Staffchat', icon: 'fa-user-shield', desc: 'Staff-only command to chat amongst other staff members privately.' },
+  { name: 'Tips', icon: 'fa-lightbulb', desc: 'Customizable tips that get sent every 5 minutes to all players.' },
+  { name: 'Trash', icon: 'fa-trash', desc: 'Custom disposal command with virtual trash can interface.' },
+  { name: 'Warps', icon: 'fa-map-marker-alt', desc: 'Custom warps system with /warp %warpname% and full management commands.' }
+];
+
+// ─── CONFIGURATION ───────────────────────────────────────────────────────────────
 const DISCORD_LINK = 'https://discord.gg/6FgafDqf3N';
-const EMAIL_ADDR   = '6p3l.support@gmail.com';
+const EMAIL_ADDR = '6p3l.support@gmail.com';
 
-// Initialize localStorage if not exists
-if (!localStorage.getItem('skriptsData')) {
-  const initialData = {
-    skripts: [
-      { id:'afk-pool',      name:'Afk Pool',       version:'1.2', updated:'2023-06-15', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Rewards'],       desc:'Configurable AFK Pool that gives rewards to players who stay in it for a set amount of time. Fully customizable reward types and intervals.' },
-      { id:'announcements', name:'Announcements',   version:'1.1', updated:'2023-05-20', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Communication'], desc:'Premade announcements with fully customizable messages and intervals for automatic broadcasting across the server.' },
-      { id:'autocompressor',name:'Autocompressor',  version:'1.3', updated:'2023-07-10', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','PvP'],           desc:'Automatically compresses items into a target item. Specifically made for GenPvP servers to handle bulk item stacking.' },
-      { id:'bans',          name:'Bans',            version:'2.0', updated:'2023-08-05', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Admin'],      desc:'Full-featured ban skript with tempbans, mutes, and other moderation tools. Supports offline banning and ban history.' },
-      { id:'clearchat',     name:'Clearchat',       version:'1.0', updated:'2023-04-18', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Utility'],    desc:'Clears the entire chat with a broadcast announcement. Perfect for moderators to quickly manage the chat environment.' },
-      { id:'discord',       name:'Discord',         version:'1.4', updated:'2023-07-25', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Integration'],   desc:'Adds a /discord command that shares your server\'s Discord invite link with players in chat.' },
-      { id:'firstjoin',     name:'FirstJoin',       version:'1.2', updated:'2023-06-30', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Spawn'],         desc:'Teleports a player to configurable spawn coordinates on their very first join. Improves the new-player experience.' },
-      { id:'gamemode',      name:'Gamemode',        version:'1.1', updated:'2023-05-15', ratingSum:0, ratingCount:0, category:'Admin',      tags:['Admin','Utility'],         desc:'Short aliases for /gamemode creative, survival, adventure, and spectator. Simplify mode-switching for admins and ops.' },
-      { id:'jail',          name:'Jail',            version:'1.3', updated:'2023-08-12', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Punishment'], desc:'Custom /jail command that restricts players to a set location for a defined amount of time — without banning them.' },
-      { id:'joinleave',     name:'JoinLeave',       version:'1.2', updated:'2023-07-05', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Communication'], desc:'Fully customizable join and leave messages. Supports placeholders for player names, ranks, and more.' },
-      { id:'keyall',        name:'Keyall',          version:'1.5', updated:'2023-08-20', ratingSum:0, ratingCount:0, category:'Economy',    tags:['Economy','Crates'],        desc:'Commands for giving every online player a specified crate key. Compatible with ExcellentCrates and similar plugins.' },
-      { id:'leaderboard',   name:'Leaderboard',     version:'1.4', updated:'2023-07-18', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Stats'],         desc:'Automatic leaderboard refresh for AJ Leaderboards. Keeps your server statistics always up-to-date.' },
-      { id:'mutechat',      name:'Mutechat',        version:'1.2', updated:'2023-06-22', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Admin'],      desc:'Mutes the global chat for all default-rank players so that only staff can talk. Essential for event management.' },
-      { id:'reports',       name:'Reports',         version:'1.6', updated:'2023-08-25', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Utility'],    desc:'Adds /report for players and /reportlist for staff to see a list of reported players and their reasons.' },
-      { id:'soulbound',     name:'Soulbound',       version:'1.3', updated:'2023-07-28', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Items'],         desc:'Marks items as soulbound so they return to the player\'s inventory on death. Perfect for protecting rare or custom items.' },
-      { id:'screenshare',   name:'Screenshare',     version:'1.7', updated:'2023-09-01', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Admin'],      desc:'Freezes a player in place and prompts them to join a Discord channel for an anti-cheat screenshare session.' },
-      { id:'staffchat',     name:'Staffchat',       version:'1.2', updated:'2023-06-10', ratingSum:0, ratingCount:0, category:'Admin',      tags:['Admin','Moderation'],      desc:'Staff-only chat channel using a /sc command. All messages are hidden from regular players.' },
-      { id:'tips',          name:'Tips',            version:'1.4', updated:'2023-08-08', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Communication'], desc:'Customizable tips broadcasted to all players on a configurable interval (default: every 5 minutes).' },
-      { id:'trash',         name:'Trash',           version:'1.1', updated:'2023-05-25', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Items'],         desc:'Adds a /trash command that opens a virtual trash bin so players can dispose of unwanted items cleanly.' },
-      { id:'warps',         name:'Warps',           version:'1.6', updated:'2023-08-15', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Navigation'],    desc:'Full warp system with /warp <name>, /setwarp, and /delwarp commands. Easy navigation around your server world.' },
-    ],
-    totalDownloads: 0
-  };
-  localStorage.setItem('skriptsData', JSON.stringify(initialData));
+// ─── RENDER SKRIPTS ───────────────────────────────────────────────────────────────
+function renderSkripts() {
+  const grid = document.getElementById('skripts-grid');
+  grid.innerHTML = SKRIPTS.map(skript => `
+    <div class="skript-card" onclick="showToast('Get this skript on Discord!')">
+      <div class="skript-header">
+        <div class="skript-icon">
+          <i class="fas ${skript.icon}"></i>
+        </div>
+        <div class="skript-name">${skript.name}</div>
+      </div>
+      <div class="skript-desc">${skript.desc}</div>
+    </div>
+  `).join('');
 }
 
-// ─── SAMPLE CODE SNIPPETS (shown on detail page) ─────────────────────────
-const SAMPLES = {
-  'bans': `<span class="comment"># ── Bans Skript by 6p3l Skript Hub ──</span>
-<span class="keyword">command</span> /ban &lt;player&gt; [&lt;text&gt;]:
-  <span class="keyword">trigger</span>:
-    <span class="keyword">if</span> sender has permission <span class="string">"staff.ban"</span>:
-      ban arg-1 due to arg-2 ? <span class="string">"No reason given"</span>
-      broadcast <span class="string">"&c%arg-1% has been banned."</span>`,
-  'warps': `<span class="comment"># ── Warps Skript by 6p3l Skript Hub ──</span>
-<span class="keyword">command</span> /warp &lt;text&gt;:
-  <span class="keyword">trigger</span>:
-    <span class="keyword">set</span> {warp::%arg-1%} to player's location
-    send <span class="string">"&aTeleporting to warp %arg-1%..."</span>`,
-  default: `<span class="comment"># ── 6p3l Skript Hub ──</span>
-<span class="comment"># Download the .sk file and place it in:</span>
-<span class="comment"># /plugins/Skript/scripts/</span>
-<span class="comment"># Then run: /skript reload all</span>`,
-};
+// ─── ACTIONS ─────────────────────────────────────────────────────────────────────
+function openDiscord() {
+  window.open(DISCORD_LINK, '_blank');
+  showToast('Opening Discord...');
+}
 
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let currentFilter = 'all';
-let currentSkriptId = null;
-let selectedRating = 0;
-
-// ─── DOM ELEMENTS ────────────────────────────────────────────────────────────
-const ratingModal = document.getElementById('ratingModal');
-const stars = document.querySelectorAll('.star');
-const submitRatingBtn = document.getElementById('submitRating');
-const starsContainer = document.getElementById('starsContainer');
-
-// ─── INITIALIZATION ──────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  updateStats();
-  renderGrid();
-  
-  // Star hover effect
-  stars.forEach(star => {
-    star.addEventListener('mouseover', () => {
-      const value = parseInt(star.getAttribute('data-value'));
-      highlightStars(value);
-    });
-    
-    star.addEventListener('mouseout', () => {
-      highlightStars(selectedRating);
-    });
-    
-    star.addEventListener('click', () => {
-      selectedRating = parseInt(star.getAttribute('data-value'));
-      highlightStars(selectedRating);
-    });
+function copyEmail() {
+  navigator.clipboard.writeText(EMAIL_ADDR).then(() => {
+    showToast('Email copied to clipboard!');
   });
-  
-  // Submit rating
-  submitRatingBtn.addEventListener('click', submitRating);
-  
-  // Close modal when clicking outside
-  ratingModal.addEventListener('click', (e) => {
-    if (e.target === ratingModal) {
-      closeModal();
-    }
-  });
+}
+
+function scrollToSection(sectionId) {
+  document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+// ─── INIT ───────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderSkripts();
 });
-
-// ─── NAVIGATION ──────────────────────────────────────────────────────────────
-function navigate(page, data) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.page === page || (page === 'detail' && b.dataset.page === 'skripts'));
-  });
-  const target = page === 'detail' ? 'detail' : page;
-  document.getElementById('page-' + target).classList.add('active');
-  if (page === 'skripts') renderGrid();
-  if (page === 'detail' && data) renderDetail(data);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ─── GRID RENDER
+</script>
+</body>
+</html>
