@@ -8,138 +8,201 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     body {
-      background: linear-gradient(135deg, #f3e8ff 0%, #e0bbff 100%);
+      background: linear-gradient(to bottom, #f9f0ff, #e9d5ff);
     }
-    .card-hover {
+    .section {
+      transition: all 0.4s ease;
+    }
+    .card {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .card-hover:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px -10px rgb(147 51 234 / 0.15);
+    }
+    .accent-gradient {
+      background: linear-gradient(to right, #a855f7, #c026d3);
     }
   </style>
 </head>
-<body class="min-h-screen font-sans text-purple-950">
+<body class="font-sans text-purple-950 leading-relaxed">
+
   <!-- Navbar -->
-  <nav class="bg-white/80 backdrop-blur-md border-b border-purple-200 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+  <nav class="bg-white/90 backdrop-blur-md border-b border-purple-200 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center text-white font-bold text-2xl">🌸</div>
-        <h1 class="text-2xl font-bold tracking-tight">lavender</h1>
+        <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center text-white text-xl">🌸</div>
+        <span class="font-bold text-2xl tracking-tighter">lavender</span>
       </div>
       <div class="flex gap-8 text-sm font-medium">
-        <a href="#scripts" class="hover:text-purple-600 transition-colors">Scripts</a>
         <a href="#about" class="hover:text-purple-600 transition-colors">About</a>
-        <a href="https://discord.gg/yourlink" target="_blank" class="hover:text-purple-600 transition-colors">Discord</a>
+        <a href="#scripts" class="hover:text-purple-600 transition-colors">Scripts</a>
+        <a href="#experience" class="hover:text-purple-600 transition-colors">Experience</a>
+        <a href="#contact" class="hover:text-purple-600 transition-colors">Contact</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="pt-24 pb-16 text-center">
+  <!-- Hero / Welcome -->
+  <section class="pt-28 pb-20 text-center max-w-3xl mx-auto px-6">
+    <div class="inline-flex items-center gap-2 bg-white/70 px-5 py-2 rounded-full border border-purple-200 mb-6">
+      <span class="text-purple-500">✦</span>
+      <span class="uppercase tracking-widest text-xs font-medium">Minecraft Skript Developer</span>
+    </div>
+    <h1 class="text-6xl font-bold leading-tight mb-4">
+      hey, i'm <span class="accent-gradient bg-clip-text text-transparent">lavender</span>
+    </h1>
+    <p class="text-2xl text-purple-700">i make clean, fun, and optimized minecraft scripts</p>
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <a href="#scripts" class="accent-gradient text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-3 hover:scale-105 transition-all">
+        Browse My Scripts
+        <i class="fas fa-arrow-down"></i>
+      </a>
+      <a href="#contact" class="border border-purple-300 hover:border-purple-400 px-8 py-4 rounded-3xl font-medium transition-all">
+        Get in touch
+      </a>
+    </div>
+  </section>
+
+  <!-- About / What I Do -->
+  <section id="about" class="bg-white/70 py-20">
     <div class="max-w-4xl mx-auto px-6">
-      <div class="inline-flex items-center gap-2 bg-white/70 px-6 py-2 rounded-full border border-purple-200 mb-6">
-        <span class="text-purple-600">✦</span>
-        <span class="text-sm font-medium tracking-wide">MINECRAFT SCRIPTS</span>
-      </div>
-      <h2 class="text-6xl font-bold leading-tight mb-6">
-        Beautiful scripts.<br>
-        <span class="bg-gradient-to-r from-purple-600 to-violet-600 bg-clip-text text-transparent">Lavender vibes.</span>
-      </h2>
-      <p class="text-xl text-purple-700/80 max-w-2xl mx-auto">
-        Free & premium Minecraft scripts (Skript, datapacks, etc.) with that soft purple aesthetic.
-      </p>
-      <div class="mt-10">
-        <a href="#scripts" 
-           class="inline-flex items-center gap-3 bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-3xl font-semibold text-lg transition-all">
-          Browse Scripts
-          <i class="fas fa-arrow-down"></i>
-        </a>
+      <h2 class="text-4xl font-bold mb-8 text-center">what i do</h2>
+      <div class="prose prose-purple max-w-none text-lg text-purple-800">
+        <p class="text-center">I specialize in creating high-quality Skripts for Minecraft servers. Clean code, cool features, minimal lag, and that soft lavender touch.</p>
+        <div class="grid md:grid-cols-3 gap-8 mt-12">
+          <div class="text-center card bg-white p-8 rounded-3xl border border-purple-100">
+            <div class="text-4xl mb-4">📜</div>
+            <h3 class="font-semibold text-xl mb-2">Skript Development</h3>
+            <p class="text-purple-600">Custom mechanics, GUIs, systems, and fun features.</p>
+          </div>
+          <div class="text-center card bg-white p-8 rounded-3xl border border-purple-100">
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="font-semibold text-xl mb-2">Optimization</h3>
+            <p class="text-purple-600">Lag-free, efficient scripts that scale well.</p>
+          </div>
+          <div class="text-center card bg-white p-8 rounded-3xl border border-purple-100">
+            <div class="text-4xl mb-4">🌸</div>
+            <h3 class="font-semibold text-xl mb-2">Aesthetic Vibes</h3>
+            <p class="text-purple-600">Pretty particles, smooth UX, and chill designs.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Scripts Section -->
-  <section id="scripts" class="max-w-6xl mx-auto px-6 py-20">
-    <h3 class="text-4xl font-bold mb-12 text-center">My Scripts</h3>
+  <section id="scripts" class="py-20 max-w-5xl mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-12 text-center">my scripts</h2>
     
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="script-grid">
-      <!-- Scripts will be added here via JS or manually -->
+    <div class="grid md:grid-cols-2 gap-8" id="script-grid">
+      <!-- JS will populate these cards -->
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="bg-white/60 py-20">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h3 class="text-4xl font-bold mb-6">Why lavender?</h3>
-      <p class="text-lg text-purple-700/90">
-        Just a chill collection of Minecraft scripts I made. Clean code, nice features, and a whole lot of purple energy.
-      </p>
+  <!-- Experience -->
+  <section id="experience" class="bg-white/70 py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-12 text-center">my experience</h2>
+      <div class="space-y-10">
+        <!-- Add your own experience here or leave as example -->
+        <div class="card bg-white p-8 rounded-3xl border border-purple-100">
+          <div class="flex justify-between">
+            <div>
+              <h3 class="font-semibold">Your Server / Project Name</h3>
+              <p class="text-purple-600">Role • Dates</p>
+            </div>
+            <span class="text-sm text-purple-500">Active / Retired</span>
+          </div>
+          <p class="mt-4 text-purple-700">Short description of what you did there.</p>
+        </div>
+        <!-- Duplicate the block above for more entries -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-gradient-to-b from-transparent to-purple-100">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-4xl font-bold mb-6">let's work together</h2>
+      <p class="text-lg text-purple-700 mb-10">Need custom Skripts? Server help? Just wanna chat about Minecraft?</p>
+      
+      <div class="flex flex-col sm:flex-row gap-6 justify-center">
+        <a href="mailto:your@email.com" class="flex-1 bg-white hover:bg-purple-50 border border-purple-200 p-6 rounded-3xl card flex flex-col items-center gap-3">
+          <i class="fas fa-envelope text-3xl text-purple-500"></i>
+          <div>
+            <p class="font-medium">Email</p>
+            <p class="text-sm text-purple-600">your@email.com</p>
+          </div>
+        </a>
+        <a href="https://discord.gg/yourlink" target="_blank" class="flex-1 bg-white hover:bg-purple-50 border border-purple-200 p-6 rounded-3xl card flex flex-col items-center gap-3">
+          <i class="fab fa-discord text-3xl text-purple-500"></i>
+          <div>
+            <p class="font-medium">Discord</p>
+            <p class="text-sm text-purple-600">yourusername</p>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-purple-950 text-purple-200 py-12">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <p>Made with <span class="text-purple-400">💜</span> for the Minecraft community</p>
-      <p class="text-sm mt-2 opacity-70">© 2026 YourName • All rights reserved (or not, idc)</p>
+  <footer class="bg-purple-950 text-purple-300 py-12">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <p class="flex items-center justify-center gap-2">
+        made with <span class="text-pink-400">💜</span> for the minecraft community
+      </p>
+      <p class="text-sm mt-4 opacity-70">© 2026 Your Name • All vibes reserved</p>
     </div>
   </footer>
 
   <script>
-    // Add your scripts here (easy to edit)
     const scripts = [
       {
         title: "Advanced Economy System",
-        desc: "Full shop, balance, admin commands — clean & optimized",
+        desc: "Full shop, balances, admin tools — clean and fast.",
         version: "v1.3",
         size: "12 KB",
-        download: "https://your-link-to-script.sk"   // ← change this
+        download: "#"  // replace with real link later
       },
       {
-        title: "Custom Enchants",
-        desc: "10+ unique enchantments with cool particle effects",
-        version: "v2.0",
-        size: "18 KB",
+        title: "Custom Enchants Pack",
+        desc: "10+ unique enchants with beautiful particles.",
+        version: "v2.1",
+        size: "19 KB",
         download: "#"
       },
       {
-        title: "Factions Lite",
-        desc: "Simple faction system with claims and wars",
+        title: "Simple Factions Lite",
+        desc: "Claims, wars, and basic management.",
         version: "v0.9",
-        size: "25 KB",
+        size: "24 KB",
         download: "#"
       }
-      // Add more objects as needed
+      // Add more here
     ];
 
     const grid = document.getElementById('script-grid');
     
-    scripts.forEach(script => {
-      const card = document.createElement('div');
-      card.className = `bg-white rounded-3xl overflow-hidden card-hover border border-purple-100`;
-      card.innerHTML = `
-        <div class="h-2 bg-gradient-to-r from-purple-400 to-violet-500"></div>
-        <div class="p-8">
-          <div class="flex justify-between items-start mb-4">
-            <h4 class="text-2xl font-semibold">${script.title}</h4>
-            <span class="text-xs px-3 py-1 bg-purple-100 text-purple-700 rounded-full">${script.version}</span>
-          </div>
-          <p class="text-purple-600 mb-8">${script.desc}</p>
-          
-          <div class="flex items-center justify-between text-sm">
-            <span class="flex items-center gap-2 text-purple-500">
-              <i class="fas fa-download"></i> ${script.size}
-            </span>
-            <a href="${script.download}" 
-               class="bg-purple-600 hover:bg-violet-600 text-white px-6 py-3 rounded-2xl flex items-center gap-2 font-medium transition-all">
-              <i class="fas fa-arrow-down"></i>
-              Download
-            </a>
-          </div>
+    scripts.forEach(s => {
+      const div = document.createElement('div');
+      div.className = `card bg-white rounded-3xl p-8 border border-purple-100`;
+      div.innerHTML = `
+        <div class="flex justify-between items-start mb-6">
+          <h3 class="text-2xl font-semibold">${s.title}</h3>
+          <span class="text-xs px-4 py-1.5 bg-purple-100 text-purple-700 rounded-2xl">${s.version}</span>
+        </div>
+        <p class="text-purple-600 mb-8">${s.desc}</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm flex items-center gap-2 text-purple-500">
+            <i class="fas fa-download"></i> ${s.size}
+          </span>
+          <a href="${s.download}" class="accent-gradient text-white px-7 py-3 rounded-2xl font-medium flex items-center gap-2 hover:scale-105 transition-all">
+            Download <i class="fas fa-arrow-down"></i>
+          </a>
         </div>
       `;
-      grid.appendChild(card);
+      grid.appendChild(div);
     });
   </script>
 </body>
