@@ -1,226 +1,623 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lavender • minecraft developer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #0a0a0a;
-      color: #e0bbff;
-    }
-    .lavender-text { color: #c084fc; }
-    .lavender-accent { color: #a855f7; }
-    .section { padding: 6rem 0; }
-    .card {
-      background: #1a1a1a;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      background: #242424;
-      box-shadow: 0 0 0 1px #c084fc33;
-    }
-    .heading {
-      font-size: 3.5rem;
-      font-weight: 700;
-      letter-spacing: -0.05em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavender Script Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --lavender: #9370DB;
+            --dark-purple: #4B0082;
+            --darker-purple: #2E0854;
+            --light-purple: #E6E6FA;
+            --dark-bg: #121212;
+            --card-bg: #1e1e2e;
+            --text-light: #f0f0f0;
+            --text-muted: #b0b0b0;
+            --accent: #9370DB;
+            --hover: #7d5bbd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(75, 0, 130, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(147, 112, 219, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(147, 112, 219, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--lavender);
+            text-shadow: 0 0 10px rgba(147, 112, 219, 0.5);
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(to right, var(--lavender), var(--light-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(147, 112, 219, 0.2);
+            color: var(--lavender);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 50px;
+            background: rgba(30, 30, 46, 0.6);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(147, 112, 219, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--lavender), var(--light-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border-radius: 50px;
+            border: 1px solid rgba(147, 112, 219, 0.3);
+            background: rgba(30, 30, 46, 0.8);
+            color: var(--text-light);
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--lavender);
+            box-shadow: 0 0 15px rgba(147, 112, 219, 0.4);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--lavender);
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .filter-btn {
+            background: rgba(30, 30, 46, 0.8);
+            border: 1px solid rgba(147, 112, 219, 0.3);
+            color: var(--text-light);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--lavender);
+            color: white;
+            border-color: var(--lavender);
+        }
+
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .script-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(147, 112, 219, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .script-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(147, 112, 219, 0.2);
+            border-color: var(--lavender);
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(147, 112, 219, 0.1);
+            background: rgba(75, 0, 130, 0.1);
+        }
+
+        .card-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--lavender);
+        }
+
+        .card-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: rgba(147, 112, 219, 0.2);
+            color: var(--lavender);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .card-footer {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(147, 112, 219, 0.1);
+        }
+
+        .download-btn {
+            background: var(--lavender);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-btn:hover {
+            background: var(--hover);
+            transform: scale(1.05);
+        }
+
+        .rating {
+            color: var(--lavender);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(30, 30, 46, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            min-width: 180px;
+            border: 1px solid rgba(147, 112, 219, 0.2);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            color: var(--lavender);
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--lavender);
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(147, 112, 219, 0.2);
+            margin-top: 40px;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--lavender);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .scripts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <h1>Lavender Script Hub</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Scripts</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-lg border-b border-purple-900 z-50">
-    <div class="max-w-6xl mx-auto px-8 py-6 flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center text-2xl">🌸</div>
-        <span class="text-3xl font-bold tracking-tighter lavender-text">lavender</span>
-      </div>
-      <div class="flex gap-10 text-sm font-medium">
-        <a href="#what-i-do" class="hover:lavender-accent transition-colors">What I Do</a>
-        <a href="#skills" class="hover:lavender-accent transition-colors">Skills</a>
-        <a href="#opportunities" class="hover:lavender-accent transition-colors">Opportunities</a>
-        <a href="#experience" class="hover:lavender-accent transition-colors">Experience</a>
-        <a href="#contact" class="hover:lavender-accent transition-colors">Contact</a>
-      </div>
-    </div>
-  </nav>
+        <section class="hero">
+            <h2>Download Premium Scripts</h2>
+            <p>Discover and download high-quality scripts for your projects. All scripts are carefully crafted with attention to detail and performance.</p>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search for scripts...">
+            </div>
+        </section>
 
-  <!-- Hero -->
-  <section class="min-h-screen flex items-center pt-20">
-    <div class="max-w-5xl mx-auto px-8 text-center">
-      <p class="text-purple-400 text-xl mb-4 tracking-widest">WELCOME</p>
-      <h1 class="heading text-white mb-6">Minecraft Developer & Server Manager</h1>
-      <p class="max-w-3xl mx-auto text-xl text-purple-300 leading-relaxed">
-        Skript specialist with extensive experience in server administration, custom game mechanics, 
-        and community management. I build engaging Minecraft experiences through custom scripts and server optimization.
-      </p>
-      <div class="mt-16">
-        <a href="#experience" 
-           class="inline-flex items-center gap-3 bg-purple-600 hover:bg-purple-700 text-white px-10 py-5 rounded-3xl font-semibold text-lg transition-all">
-          View My Journey
-          <i class="fas fa-arrow-down"></i>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- What I Do -->
-  <section id="what-i-do" class="section bg-zinc-950">
-    <div class="max-w-4xl mx-auto px-8">
-      <h2 class="heading text-white mb-10">What I Do</h2>
-      <p class="text-lg text-purple-200 leading-relaxed">
-        I specialize in Skript scripting and server management on Minehut. My work includes custom game mechanics, 
-        event systems, player management tools, and server infrastructure. I focus on creating smooth, lag-free 
-        experiences with unique gameplay features.
-      </p>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="section">
-    <div class="max-w-4xl mx-auto px-8">
-      <h2 class="heading text-white mb-12">My Skills</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="card p-8 rounded-3xl">
-          <ul class="space-y-5 text-lg">
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> Advanced Skript</li>
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> Server Administration (Minehut)</li>
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> Custom Game Mechanics</li>
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> Event Systems & Automation</li>
-          </ul>
+        <div class="filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Automation</button>
+            <button class="filter-btn">Utilities</button>
+            <button class="filter-btn">Games</button>
+            <button class="filter-btn">Tools</button>
+            <button class="filter-btn">Plugins</button>
         </div>
-        <div class="card p-8 rounded-3xl">
-          <ul class="space-y-5 text-lg">
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> HTML, CSS, JavaScript</li>
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> GenPVP Server Specialization</li>
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> Performance Optimization</li>
-            <li class="flex items-center gap-4"><span class="text-purple-400 text-2xl">→</span> Community Management</li>
-          </ul>
+
+        <div class="scripts-grid">
+            <!-- Script Card 1 -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Auto-Clicker Pro</h3>
+                    <p>Version 2.4 | Updated: 2023-06-15</p>
+                </div>
+                <div class="card-body">
+                    <p>Advanced auto-clicker with customizable delays, hotkeys, and multiple click patterns for productivity.</p>
+                    <div class="tags">
+                        <span class="tag">Automation</span>
+                        <span class="tag">Productivity</span>
+                        <span class="tag">Utility</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Script Card 2 -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Web Scraper Toolkit</h3>
+                    <p>Version 1.8 | Updated: 2023-07-22</p>
+                </div>
+                <div class="card-body">
+                    <p>Powerful web scraping tool with data export capabilities and customizable parsing rules.</p>
+                    <div class="tags">
+                        <span class="tag">Data</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">Utilities</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.2</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Script Card 3 -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Pixel Art Generator</h3>
+                    <p>Version 3.1 | Updated: 2023-08-10</p>
+                </div>
+                <div class="card-body">
+                    <p>Simple yet powerful pixel art creation tool with palette customization and export options.</p>
+                    <div class="tags">
+                        <span class="tag">Graphics</span>
+                        <span class="tag">Tools</span>
+                        <span class="tag">Creative</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Script Card 4 -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Task Scheduler</h3>
+                    <p>Version 1.2 | Updated: 2023-05-30</p>
+                </div>
+                <div class="card-body">
+                    <p>Flexible task scheduling system with notifications and recurring tasks management.</p>
+                    <div class="tags">
+                        <span class="tag">Productivity</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">Utilities</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.5</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Script Card 5 -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Database Manager</h3>
+                    <p>Version 2.7 | Updated: 2023-09-05</p>
+                </div>
+                <div class="card-body">
+                    <p>Comprehensive database management tool with query builder and data visualization.</p>
+                    <div class="tags">
+                        <span class="tag">Database</span>
+                        <span class="tag">Tools</span>
+                        <span class="tag">Utilities</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.0</span>
+                    </div>
+                    <button class="download-btn">
+                        <i classfas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Script Card 6 -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Chat Bot Framework</h3>
+                    <p>Version 1.5 | Updated: 2023-07-18</p>
+                </div>
+                <div class="card-body">
+                    <p>Extensible chatbot framework with natural language processing and multi-platform support.</p>
+                    <div class="tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">Plugins</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.8</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <i class="fas fa-download"></i>
+                <h3>12,542</h3>
+                <p>Downloads</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-code"></i>
+                <h3>142</h3>
+                <p>Scripts</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <h3>4.7</h3>
+                <p>Average Rating</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-user"></i>
+                <h3>3,289</h3>
+                <p>Active Users</p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2023 Lavender Script Hub. All rights reserved.</p>
+            <p>Designed with <i class="fas fa-heart" style="color: var(--lavender);"></i> for developers</p>
+        </footer>
     </div>
-  </section>
 
-  <!-- Open to Opportunities -->
-  <section id="opportunities" class="section bg-zinc-950">
-    <div class="max-w-4xl mx-auto px-8">
-      <h2 class="heading text-white mb-6">Open to Opportunities</h2>
-      <p class="text-3xl font-semibold lavender-accent mb-8">Accepting Positions</p>
-      <div class="prose prose-invert max-w-none text-lg text-purple-200">
-        <p>I'm accepting <strong>development and management positions</strong> for servers that align with my expertise. I'm also happy to optimize servers on a contract/project basis.</p>
-        <p class="mt-6">Compensation of <strong class="lavender-text">$7.50+ weekly (via PayPal)</strong> is required for full-time positions.</p>
-        <p class="mt-8"><strong>Specialization:</strong> GenPVP servers (with exceptions available)</p>
-      </div>
-      <div class="mt-12 text-lg">
-        Contact me: 
-        <a href="mailto:your@email.com" class="lavender-accent underline hover:text-purple-300">your@email.com</a> 
-        | Discord: <span class="lavender-text">yourusername</span> 
-        | Minecraft: <span class="lavender-text">yourusername</span>
-      </div>
-    </div>
-  </section>
+    <script>
+        // Simple interactivity for download buttons
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const scriptName = this.closest('.script-card').querySelector('h3').textContent;
+                alert(`Downloading ${scriptName}...`);
+            });
+        });
 
-  <!-- Experience -->
-  <section id="experience" class="section">
-    <div class="max-w-6xl mx-auto px-8">
-      <h2 class="heading text-white mb-6">My Experience</h2>
-      <p class="max-w-3xl text-purple-300 text-lg mb-16">
-        I've held various roles in the Minecraft community, from ownership to development. 
-        Each position taught me valuable lessons about project management, technical implementation, and community dynamics.
-      </p>
-
-      <!-- Leadership -->
-      <div class="mb-20">
-        <h3 class="text-2xl font-semibold lavender-accent mb-8 border-b border-purple-900 pb-4">Leadership & Administration</h3>
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="card p-7 rounded-3xl text-sm">Owner • Retired<br><span class="lavender-text">SakuraNetwork</span></div>
-          <div class="card p-7 rounded-3xl text-sm">Co-Owner • Retired<br><span class="lavender-text">MacePvPGenz</span></div>
-          <div class="card p-7 rounded-3xl text-sm">Co-Owner • Retired<br><span class="lavender-text">InfusePvP</span></div>
-          <div class="card p-7 rounded-3xl text-sm">Manager • Retired<br><span class="lavender-text">ValyriaGens</span></div>
-          <div class="card p-7 rounded-3xl text-sm">Manager • Retired<br><span class="lavender-text">DefusedGens</span></div>
-          <div class="card p-7 rounded-3xl text-sm">Manager • Retired<br><span class="lavender-text">YTMines</span></div>
-        </div>
-      </div>
-
-      <!-- Development -->
-      <div class="mb-20">
-        <h3 class="text-2xl font-semibold lavender-accent mb-8 border-b border-purple-900 pb-4">Development & Technical Roles</h3>
-        <div class="grid md:grid-cols-3 gap-6 text-sm">
-          <div class="card p-7 rounded-3xl">Head Developer • Retired<br><span class="lavender-text">PebbleMines</span></div>
-          <div class="card p-7 rounded-3xl">Developer • Active<br><span class="lavender-text">BreezeGens</span></div>
-          <!-- Add more from the full list if you want – I kept main ones for cleanliness. You can duplicate cards easily -->
-          <div class="card p-7 rounded-3xl">Developer • Retired<br><span class="lavender-text">GenMace</span></div>
-        </div>
-      </div>
-
-      <!-- Moderation -->
-      <div>
-        <h3 class="text-2xl font-semibold lavender-accent mb-8 border-b border-purple-900 pb-4">Moderation & Support</h3>
-        <div class="grid md:grid-cols-3 gap-6 text-sm">
-          <div class="card p-7 rounded-3xl">Sr. Moderator • Active<br><span class="lavender-text">GenIn</span></div>
-          <!-- Add more as needed -->
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="section bg-zinc-950">
-    <div class="max-w-4xl mx-auto px-8 text-center">
-      <h2 class="heading text-white mb-10">Contact Me</h2>
-      <p class="text-xl text-purple-300 max-w-2xl mx-auto mb-16">
-        Whether you have a project in mind, want to discuss Skript development, or just want to connect with the community, I'd love to hear from you.
-      </p>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <a href="mailto:your@email.com" class="card p-10 rounded-3xl group">
-          <i class="fas fa-envelope text-5xl mb-6 lavender-accent group-hover:scale-110 transition"></i>
-          <p class="font-semibold">Email</p>
-          <p class="lavender-text">your@email.com</p>
-        </a>
-        <div class="card p-10 rounded-3xl">
-          <i class="fab fa-discord text-5xl mb-6 lavender-accent"></i>
-          <p class="font-semibold">Discord</p>
-          <p class="lavender-text">yourusername</p>
-        </div>
-        <a href="https://discord.gg/yourlink" target="_blank" class="card p-10 rounded-3xl group">
-          <i class="fas fa-users text-5xl mb-6 lavender-accent group-hover:scale-110 transition"></i>
-          <p class="font-semibold">Community Server</p>
-          <p class="lavender-text">Join Hub</p>
-        </a>
-      </div>
-
-      <div class="mt-20 text-sm opacity-75">
-        Available for Skript Development, Server Management, GenPVP Projects, Optimization &amp; more.<br>
-        Accepting positions at <span class="lavender-text">$7.50+ weekly</span> via PayPal.
-      </div>
-    </div>
-  </section>
-
-  <footer class="py-12 text-center text-purple-500 text-sm border-t border-purple-900">
-    © 2026 lavender • built with dark lavender energy
-  </footer>
-
-  <script>
-    // Simple smooth scroll enhancement + active nav highlight (polish)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    // Tailwind script already loaded via CDN
-  </script>
+        // Filter button functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
