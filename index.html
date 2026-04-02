@@ -3,27 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lavender • minecraft scripts</title>
+  <title>lavender's Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    body {
-      background: linear-gradient(to bottom, #f9f0ff 0%, #f3e8ff 100%);
-    }
-    .section { padding: 5rem 0; }
-    .card {
-      transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 25px -5px rgb(168 85 247 / 0.1);
-    }
-    .accent {
-      background: linear-gradient(to right, #a855f7, #c026d3);
-    }
+    body { background: linear-gradient(to bottom, #f9f0ff, #f3e8ff); }
+    .card { transition: all 0.3s ease; }
+    .card:hover { transform: translateY(-4px); }
   </style>
 </head>
-<body class="font-sans text-purple-950">
+<body class="font-sans text-purple-950 leading-relaxed">
 
   <!-- Navbar -->
   <nav class="bg-white/90 backdrop-blur-md border-b border-purple-200 sticky top-0 z-50">
@@ -32,175 +21,163 @@
         <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center text-white text-2xl">🌸</div>
         <span class="font-bold text-3xl tracking-tighter">lavender</span>
       </div>
-      <div class="hidden md:flex gap-10 text-sm font-medium">
-        <a href="#what-i-do" class="hover:text-purple-600 transition">What I Do</a>
-        <a href="#skills" class="hover:text-purple-600 transition">Skills</a>
-        <a href="#scripts" class="hover:text-purple-600 transition">Scripts</a>
-        <a href="#experience" class="hover:text-purple-600 transition">Experience</a>
-        <a href="#contact" class="hover:text-purple-600 transition">Contact</a>
+      <div class="flex gap-8 text-sm font-medium">
+        <a href="#what-i-do" class="hover:text-purple-600">What I Do</a>
+        <a href="#skills" class="hover:text-purple-600">Skills</a>
+        <a href="#opportunities" class="hover:text-purple-600">Opportunities</a>
+        <a href="#experience" class="hover:text-purple-600">Experience</a>
+        <a href="#contact" class="hover:text-purple-600">Contact</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="pt-32 pb-24 text-center max-w-3xl mx-auto px-6">
-    <h1 class="text-7xl font-bold tracking-tighter mb-4">welcome</h1>
-    <p class="text-3xl text-purple-700">Minecraft Skript Developer & Server Manager</p>
-    <div class="mt-8 text-xl text-purple-800 max-w-2xl mx-auto">
-      Skript specialist with a passion for clean code, smooth mechanics, and chill server experiences. 
-      I build fun, optimized scripts with that soft lavender touch.
-    </div>
-    <div class="mt-12">
-      <a href="#scripts" 
-         class="accent text-white px-10 py-5 rounded-3xl font-semibold text-lg inline-flex items-center gap-3 hover:scale-105 transition-all">
-        View My Scripts
-        <i class="fas fa-arrow-down"></i>
-      </a>
-    </div>
+  <section class="pt-32 pb-20 text-center max-w-4xl mx-auto px-6">
+    <p class="text-xl text-purple-600 mb-2">welcome</p>
+    <h1 class="text-6xl font-bold tracking-tight mb-6">Minecraft Developer & Server Manager</h1>
+    <p class="text-xl text-purple-700 max-w-3xl mx-auto">
+      Skript specialist with extensive experience in server administration, custom game mechanics, and community management. 
+      I build engaging Minecraft experiences through custom scripts and server optimization.
+    </p>
   </section>
 
   <!-- What I Do -->
-  <section id="what-i-do" class="section bg-white/70">
+  <section id="what-i-do" class="bg-white/70 py-20">
     <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-5xl font-bold text-center mb-12">what i do</h2>
-      <div class="prose prose-purple max-w-none text-lg leading-relaxed text-center mx-auto">
-        <p>I specialize in Skript development and server management. I create custom game mechanics, event systems, player tools, and optimized features for Minecraft servers — all with clean, lag-free code and aesthetic flair.</p>
-      </div>
+      <h2 class="text-5xl font-bold mb-8">What I Do</h2>
+      <p class="text-lg text-purple-800">
+        I specialize in Skript scripting and server management on Minehut. My work includes custom game mechanics, 
+        event systems, player management tools, and server infrastructure. I focus on creating smooth, lag-free 
+        experiences with unique gameplay features.
+      </p>
     </div>
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="section">
+  <section id="skills" class="py-20">
     <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-5xl font-bold text-center mb-12">my skills</h2>
-      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-        <div class="card bg-white p-8 rounded-3xl border border-purple-100">
-          <ul class="space-y-4 text-lg">
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Advanced Skript</li>
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Custom Mechanics & GUIs</li>
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Event Systems & Automation</li>
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Server Optimization</li>
-          </ul>
-        </div>
-        <div class="card bg-white p-8 rounded-3xl border border-purple-100">
-          <ul class="space-y-4 text-lg">
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> HTML / CSS / JS (for web tools)</li>
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> GenPVP & PvP Server Focus</li>
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Community Management</li>
-            <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Particle & Aesthetic Effects</li>
-          </ul>
-        </div>
+      <h2 class="text-5xl font-bold mb-10">My Skills</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <ul class="space-y-4 text-lg">
+          <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Skript</li>
+          <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Server Administration (Minehut)</li>
+          <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Custom Game Mechanics</li>
+          <li class="flex items-center gap-3"><span class="text-purple-500">→</span> Event Systems & Automation</li>
+        </ul>
+        <ul class="space-y-4 text-lg">
+          <li class="flex items-center gap-3"><span class="text-purple-500">→</span> HTML, CSS, JavaScript</li>
+          <li class="flex items-center gap-3"><span class="text-purple-500">→</span> GenPVP Server Specialization</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Scripts -->
-  <section id="scripts" class="section bg-white/70">
-    <div class="max-w-5xl mx-auto px-6">
-      <h2 class="text-5xl font-bold text-center mb-12">my scripts</h2>
-      <div class="grid md:grid-cols-2 gap-8" id="script-grid">
-        <!-- Populated by JS below -->
-      </div>
+  <!-- Open to Opportunities -->
+  <section id="opportunities" class="bg-white/70 py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-5xl font-bold mb-4">Open to Opportunities</h2>
+      <p class="text-2xl font-semibold mb-6">Accepting Positions</p>
+      <p class="text-lg text-purple-800 mb-8">
+        I'm accepting <strong>development and management positions</strong> for servers that align with my expertise. 
+        I'm also happy to optimize servers on a contract/project basis. 
+        Compensation of <strong>$7.50+ weekly (via PayPal)</strong> is required for full-time positions.
+      </p>
+      <p class="text-lg"><strong>Specialization:</strong> GenPVP servers (with exceptions available)</p>
+      <p class="mt-6 text-lg">
+        Contact me: <a href="mailto:noplayingor@gmail.com" class="text-purple-600 underline">noplayingor@gmail.com</a> | 
+        Discord: <strong>granndpa</strong> | Minecraft: <strong>granndpa</strong>
+      </p>
     </div>
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="section">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-5xl font-bold text-center mb-12">my experience</h2>
-      <p class="text-center text-purple-700 mb-10 max-w-2xl mx-auto">I've worked on many servers in various roles — from owner to developer. Here's where I've contributed.</p>
-      
-      <div class="space-y-12">
-        <!-- Add your own entries here. Example format: -->
-        <div class="card bg-white p-8 rounded-3xl border border-purple-100">
-          <div class="flex flex-wrap justify-between gap-4">
-            <div>
-              <h3 class="font-semibold text-xl">Your Role Here</h3>
-              <p class="text-purple-600">Server Name • Status (Active / Retired)</p>
-            </div>
+  <section id="experience" class="py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-5xl font-bold mb-6">My Experience</h2>
+      <p class="text-lg text-purple-700 mb-12 max-w-3xl">
+        I've held various roles in the Minecraft community, from ownership to development. 
+        Each position taught me valuable lessons about project management, technical implementation, and community dynamics.
+      </p>
+
+      <div class="space-y-16">
+        <!-- Leadership -->
+        <div>
+          <h3 class="text-2xl font-semibold mb-6 border-b border-purple-200 pb-2">Leadership & Administration</h3>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Owner<br><span class="text-purple-500">Retired</span><br>SakuraNetwork</div>
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Co-Owner<br><span class="text-purple-500">Retired</span><br>MacePvPGenz</div>
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Co-Owner<br><span class="text-purple-500">Retired</span><br>InfusePvP</div>
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Manager<br><span class="text-purple-500">Retired</span><br>ValyriaGens</div>
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Manager<br><span class="text-purple-500">Retired</span><br>DefusedGens</div>
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Manager<br><span class="text-purple-500">Retired</span><br>YTMines</div>
           </div>
-          <p class="mt-6 text-purple-700">Short description of what you did (mechanics built, features added, etc.).</p>
         </div>
-        <!-- Duplicate the block above for more roles -->
+
+        <!-- Development -->
+        <div>
+          <h3 class="text-2xl font-semibold mb-6 border-b border-purple-200 pb-2">Development & Technical Roles</h3>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Head Developer<br><span class="text-purple-500">Retired</span><br>PebbleMines</div>
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Developer<br><span class="text-emerald-600">Active</span><br>BreezeGens</div>
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Developer<br><span class="text-purple-500">Retired</span><br>GenMace</div>
+            <!-- Add the rest similarly if you want full list. For brevity, main ones are here. You can expand. -->
+          </div>
+        </div>
+
+        <!-- Moderation -->
+        <div>
+          <h3 class="text-2xl font-semibold mb-6 border-b border-purple-200 pb-2">Moderation & Support</h3>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div class="card bg-white p-6 rounded-3xl border border-purple-100">Sr. Moderator<br><span class="text-emerald-600">Active</span><br>GenIn</div>
+            <!-- Add remaining moderation roles as needed -->
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="section bg-gradient-to-b from-white/70 to-purple-100">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-5xl font-bold mb-8">get in touch</h2>
-      <p class="text-xl text-purple-700 max-w-xl mx-auto mb-12">
-        Need custom Skripts, server help, or just want to talk Minecraft? I'm open to cool projects.
+  <section id="contact" class="bg-white/70 py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-5xl font-bold mb-8">Contact Me</h2>
+      <p class="text-lg text-purple-700 mb-12">
+        Whether you have a project in mind, want to discuss Skript development, or just want to connect with the community, I'd love to hear from you.
       </p>
-      
-      <div class="flex flex-col sm:flex-row gap-6 justify-center max-w-md mx-auto">
-        <a href="mailto:your@email.com" class="card bg-white p-8 rounded-3xl border border-purple-100 flex-1 flex flex-col items-center gap-4 hover:border-purple-300">
-          <i class="fas fa-envelope text-4xl text-purple-500"></i>
-          <div>
-            <p class="font-medium">Email</p>
-            <p class="text-purple-600">your@email.com</p>
-          </div>
-        </a>
-        <a href="https://discord.gg/yourlink" target="_blank" class="card bg-white p-8 rounded-3xl border border-purple-100 flex-1 flex flex-col items-center gap-4 hover:border-purple-300">
-          <i class="fab fa-discord text-4xl text-purple-500"></i>
-          <div>
-            <p class="font-medium">Discord</p>
-            <p class="text-purple-600">yourusername</p>
-          </div>
-        </a>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-3xl border border-purple-100">
+          <p class="font-medium mb-2">Email</p>
+          <a href="mailto:noplayingor@gmail.com" class="text-purple-600 underline">noplayingor@gmail.com</a>
+        </div>
+        <div class="bg-white p-8 rounded-3xl border border-purple-100">
+          <p class="font-medium mb-2">Discord</p>
+          <p>granndpa</p>
+        </div>
+        <div class="bg-white p-8 rounded-3xl border border-purple-100">
+          <p class="font-medium mb-2">Community Server</p>
+          <a href="https://discord.gg/qQVeDZFSY2" target="_blank" class="text-purple-600 underline">Join Community Hub</a>
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h3 class="font-semibold mb-6">Available For</h3>
+        <ul class="list-disc pl-6 space-y-2 text-lg">
+          <li>Skript Development & Custom Scripts</li>
+          <li>Server Management & Administration</li>
+          <li>GenPVP Server Projects</li>
+          <li>Performance Optimization</li>
+          <li>Community Support & Guidance</li>
+        </ul>
+        <p class="mt-8 text-sm font-medium">
+          Accepting positions at <strong>$7.50+ weekly</strong> via PayPal
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-purple-950 text-purple-300 py-12">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <p>made with <span class="text-pink-400">💜</span> for the minecraft community</p>
-      <p class="text-sm mt-4 opacity-70">© 2026 lavender • feel free to use & modify</p>
-    </div>
+  <footer class="bg-purple-950 text-purple-300 py-12 text-center text-sm">
+    made with 💜 • feel free to use as inspiration
   </footer>
 
-  <script>
-    // === Your Scripts - Edit this array ===
-    const scripts = [
-      {
-        title: "Auto Compressor",
-        desc: "Highly configurable auto-compressor for Gen-PvP servers.",
-        version: "v1.0",
-        download: "#" // replace with real link
-      },
-      {
-        title: "Advanced Economy",
-        desc: "Clean shop system with balances and admin tools.",
-        version: "v1.3",
-        download: "#"
-      },
-      {
-        title: "Custom Enchants",
-        desc: "Unique enchants with beautiful particle effects.",
-        version: "v2.0",
-        download: "#"
-      }
-      // Add more as needed
-    ];
-
-    const grid = document.getElementById('script-grid');
-    scripts.forEach(script => {
-      const card = document.createElement('div');
-      card.className = `card bg-white p-8 rounded-3xl border border-purple-100`;
-      card.innerHTML = `
-        <h3 class="text-2xl font-semibold mb-3">${script.title}</h3>
-        <p class="text-purple-600 mb-6">${script.desc}</p>
-        <div class="flex justify-between items-center">
-          <span class="text-sm text-purple-500">${script.version}</span>
-          <a href="${script.download}" class="accent text-white px-8 py-3 rounded-3xl font-medium flex items-center gap-2">
-            Download <i class="fas fa-arrow-down"></i>
-          </a>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  </script>
 </body>
 </html>
