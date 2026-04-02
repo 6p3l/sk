@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lavender • minecraft scripts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f3e8ff 0%, #e0bbff 100%);
+    }
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans text-purple-950">
+  <!-- Navbar -->
+  <nav class="bg-white/80 backdrop-blur-md border-b border-purple-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center text-white font-bold text-2xl">🌸</div>
+        <h1 class="text-2xl font-bold tracking-tight">lavender</h1>
+      </div>
+      <div class="flex gap-8 text-sm font-medium">
+        <a href="#scripts" class="hover:text-purple-600 transition-colors">Scripts</a>
+        <a href="#about" class="hover:text-purple-600 transition-colors">About</a>
+        <a href="https://discord.gg/yourlink" target="_blank" class="hover:text-purple-600 transition-colors">Discord</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="pt-24 pb-16 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="inline-flex items-center gap-2 bg-white/70 px-6 py-2 rounded-full border border-purple-200 mb-6">
+        <span class="text-purple-600">✦</span>
+        <span class="text-sm font-medium tracking-wide">MINECRAFT SCRIPTS</span>
+      </div>
+      <h2 class="text-6xl font-bold leading-tight mb-6">
+        Beautiful scripts.<br>
+        <span class="bg-gradient-to-r from-purple-600 to-violet-600 bg-clip-text text-transparent">Lavender vibes.</span>
+      </h2>
+      <p class="text-xl text-purple-700/80 max-w-2xl mx-auto">
+        Free & premium Minecraft scripts (Skript, datapacks, etc.) with that soft purple aesthetic.
+      </p>
+      <div class="mt-10">
+        <a href="#scripts" 
+           class="inline-flex items-center gap-3 bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-3xl font-semibold text-lg transition-all">
+          Browse Scripts
+          <i class="fas fa-arrow-down"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts Section -->
+  <section id="scripts" class="max-w-6xl mx-auto px-6 py-20">
+    <h3 class="text-4xl font-bold mb-12 text-center">My Scripts</h3>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="script-grid">
+      <!-- Scripts will be added here via JS or manually -->
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="bg-white/60 py-20">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h3 class="text-4xl font-bold mb-6">Why lavender?</h3>
+      <p class="text-lg text-purple-700/90">
+        Just a chill collection of Minecraft scripts I made. Clean code, nice features, and a whole lot of purple energy.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-purple-950 text-purple-200 py-12">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p>Made with <span class="text-purple-400">💜</span> for the Minecraft community</p>
+      <p class="text-sm mt-2 opacity-70">© 2026 YourName • All rights reserved (or not, idc)</p>
+    </div>
+  </footer>
+
+  <script>
+    // Add your scripts here (easy to edit)
+    const scripts = [
+      {
+        title: "Advanced Economy System",
+        desc: "Full shop, balance, admin commands — clean & optimized",
+        version: "v1.3",
+        size: "12 KB",
+        download: "https://your-link-to-script.sk"   // ← change this
+      },
+      {
+        title: "Custom Enchants",
+        desc: "10+ unique enchantments with cool particle effects",
+        version: "v2.0",
+        size: "18 KB",
+        download: "#"
+      },
+      {
+        title: "Factions Lite",
+        desc: "Simple faction system with claims and wars",
+        version: "v0.9",
+        size: "25 KB",
+        download: "#"
+      }
+      // Add more objects as needed
+    ];
+
+    const grid = document.getElementById('script-grid');
+    
+    scripts.forEach(script => {
+      const card = document.createElement('div');
+      card.className = `bg-white rounded-3xl overflow-hidden card-hover border border-purple-100`;
+      card.innerHTML = `
+        <div class="h-2 bg-gradient-to-r from-purple-400 to-violet-500"></div>
+        <div class="p-8">
+          <div class="flex justify-between items-start mb-4">
+            <h4 class="text-2xl font-semibold">${script.title}</h4>
+            <span class="text-xs px-3 py-1 bg-purple-100 text-purple-700 rounded-full">${script.version}</span>
+          </div>
+          <p class="text-purple-600 mb-8">${script.desc}</p>
+          
+          <div class="flex items-center justify-between text-sm">
+            <span class="flex items-center gap-2 text-purple-500">
+              <i class="fas fa-download"></i> ${script.size}
+            </span>
+            <a href="${script.download}" 
+               class="bg-purple-600 hover:bg-violet-600 text-white px-6 py-3 rounded-2xl flex items-center gap-2 font-medium transition-all">
+              <i class="fas fa-arrow-down"></i>
+              Download
+            </a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
