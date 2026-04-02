@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lavender Skript Hub | Minecraft Skripts</title>
+  <title>6p3l Skript Hub | Minecraft Skripts</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
@@ -400,6 +400,79 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast i { color: var(--green); }
 
+    /* ─── RATING MODAL ─── */
+    .rating-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .rating-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .rating-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    .rating-modal.active .rating-content {
+      transform: translateY(0);
+    }
+    .rating-content h3 {
+      margin-bottom: 20px;
+      color: var(--text);
+      font-size: 1.4rem;
+    }
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 25px;
+    }
+    .star {
+      font-size: 2rem;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .star.selected,
+    .star.hover {
+      color: #f5c542;
+    }
+    .rating-btn {
+      background: linear-gradient(135deg, var(--lav), #6a3fbf);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .rating-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--lav-glow);
+    }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 640px) {
       .stats-bar { flex-direction: column; gap: 0; }
@@ -415,7 +488,7 @@
   <div class="wrap header-inner">
     <div class="logo" onclick="navigate('home')">
       <div class="logo-icon"><i class="fas fa-cubes"></i></div>
-      <span class="logo-text">Lavender <em>Skript</em> Hub</span>
+      <span class="logo-text">6p3l <em>Skript</em> Hub</span>
     </div>
     <nav>
       <button class="nav-btn active" data-page="home" onclick="navigate('home')">Home</button>
@@ -427,6 +500,21 @@
 
 <!-- TOAST -->
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toast-msg">Copied!</span></div>
+
+<!-- RATING MODAL -->
+<div class="rating-modal" id="ratingModal">
+  <div class="rating-content">
+    <h3>Rate this Skript</h3>
+    <div class="stars" id="starsContainer">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <button class="rating-btn" id="submitRating">Submit Rating</button>
+  </div>
+</div>
 
 <!-- ══════════════ HOME PAGE ══════════════ -->
 <div class="page active" id="page-home">
@@ -441,10 +529,9 @@
     </section>
 
     <div class="stats-bar">
-      <div class="stat"><div class="stat-num">8,942</div><div class="stat-label">Downloads</div></div>
-      <div class="stat"><div class="stat-num">19</div><div class="stat-label">Skripts</div></div>
-      <div class="stat"><div class="stat-num">4.7</div><div class="stat-label">Avg Rating</div></div>
-      <div class="stat"><div class="stat-num">1,357</div><div class="stat-label">Active Servers</div></div>
+      <div class="stat"><div class="stat-num" id="downloadsCount">0</div><div class="stat-label">Downloads</div></div>
+      <div class="stat"><div class="stat-num" id="skriptsCount">0</div><div class="stat-label">Skripts</div></div>
+      <div class="stat"><div class="stat-num" id="avgRating">0.0</div><div class="stat-label">Avg Rating</div></div>
     </div>
   </div>
 </div>
@@ -454,7 +541,7 @@
   <div class="wrap">
     <div class="skripts-header">
       <h2>All Skripts</h2>
-      <p>19 skripts available — click any card to view details & download</p>
+      <p id="skriptsCountHeader">0 skripts available — click any card to view details & download</p>
     </div>
 
     <div class="toolbar">
@@ -569,46 +656,53 @@
 
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────────
-const DISCORD_LINK = 'https://discord.gg/yourserver'; // ← replace with yours
-const EMAIL_ADDR   = 'contact@lavenderskrip.net';     // ← replace with yours
+const DISCORD_LINK = 'https://discord.gg/6FgafDqf3N';
+const EMAIL_ADDR   = '6p3l.support@gmail.com';
 
-const SKRIPTS = [
-  { id:'afk-pool',      name:'Afk Pool',       version:'1.2', updated:'2023-06-15', rating:4.8, category:'Utility',    tags:['Utility','Rewards'],       desc:'Configurable AFK Pool that gives rewards to players who stay in it for a set amount of time. Fully customizable reward types and intervals.' },
-  { id:'announcements', name:'Announcements',   version:'1.1', updated:'2023-05-20', rating:4.5, category:'Utility',    tags:['Utility','Communication'], desc:'Premade announcements with fully customizable messages and intervals for automatic broadcasting across the server.' },
-  { id:'autocompressor',name:'Autocompressor',  version:'1.3', updated:'2023-07-10', rating:4.7, category:'Utility',    tags:['Utility','PvP'],           desc:'Automatically compresses items into a target item. Specifically made for GenPvP servers to handle bulk item stacking.' },
-  { id:'bans',          name:'Bans',            version:'2.0', updated:'2023-08-05', rating:4.9, category:'Moderation', tags:['Moderation','Admin'],      desc:'Full-featured ban skript with tempbans, mutes, and other moderation tools. Supports offline banning and ban history.' },
-  { id:'clearchat',     name:'Clearchat',       version:'1.0', updated:'2023-04-18', rating:4.3, category:'Moderation', tags:['Moderation','Utility'],    desc:'Clears the entire chat with a broadcast announcement. Perfect for moderators to quickly manage the chat environment.' },
-  { id:'discord',       name:'Discord',         version:'1.4', updated:'2023-07-25', rating:4.6, category:'Utility',    tags:['Utility','Integration'],   desc:'Adds a /discord command that shares your server\'s Discord invite link with players in chat.' },
-  { id:'firstjoin',     name:'FirstJoin',       version:'1.2', updated:'2023-06-30', rating:4.7, category:'Utility',    tags:['Utility','Spawn'],         desc:'Teleports a player to configurable spawn coordinates on their very first join. Improves the new-player experience.' },
-  { id:'gamemode',      name:'Gamemode',        version:'1.1', updated:'2023-05-15', rating:4.8, category:'Admin',      tags:['Admin','Utility'],         desc:'Short aliases for /gamemode creative, survival, adventure, and spectator. Simplify mode-switching for admins and ops.' },
-  { id:'jail',          name:'Jail',            version:'1.3', updated:'2023-08-12', rating:4.6, category:'Moderation', tags:['Moderation','Punishment'], desc:'Custom /jail command that restricts players to a set location for a defined amount of time — without banning them.' },
-  { id:'joinleave',     name:'JoinLeave',       version:'1.2', updated:'2023-07-05', rating:4.4, category:'Utility',    tags:['Utility','Communication'], desc:'Fully customizable join and leave messages. Supports placeholders for player names, ranks, and more.' },
-  { id:'keyall',        name:'Keyall',          version:'1.5', updated:'2023-08-20', rating:4.9, category:'Economy',    tags:['Economy','Crates'],        desc:'Commands for giving every online player a specified crate key. Compatible with ExcellentCrates and similar plugins.' },
-  { id:'leaderboard',   name:'Leaderboard',     version:'1.4', updated:'2023-07-18', rating:4.7, category:'Utility',    tags:['Utility','Stats'],         desc:'Automatic leaderboard refresh for AJ Leaderboards. Keeps your server statistics always up-to-date.' },
-  { id:'mutechat',      name:'Mutechat',        version:'1.2', updated:'2023-06-22', rating:4.5, category:'Moderation', tags:['Moderation','Admin'],      desc:'Mutes the global chat for all default-rank players so that only staff can talk. Essential for event management.' },
-  { id:'reports',       name:'Reports',         version:'1.6', updated:'2023-08-25', rating:4.8, category:'Moderation', tags:['Moderation','Utility'],    desc:'Adds /report for players and /reportlist for staff to see a list of reported players and their reasons.' },
-  { id:'soulbound',     name:'Soulbound',       version:'1.3', updated:'2023-07-28', rating:4.9, category:'Utility',    tags:['Utility','Items'],         desc:'Marks items as soulbound so they return to the player\'s inventory on death. Perfect for protecting rare or custom items.' },
-  { id:'screenshare',   name:'Screenshare',     version:'1.7', updated:'2023-09-01', rating:4.7, category:'Moderation', tags:['Moderation','Admin'],      desc:'Freezes a player in place and prompts them to join a Discord channel for an anti-cheat screenshare session.' },
-  { id:'staffchat',     name:'Staffchat',       version:'1.2', updated:'2023-06-10', rating:4.8, category:'Admin',      tags:['Admin','Moderation'],      desc:'Staff-only chat channel using a /sc command. All messages are hidden from regular players.' },
-  { id:'tips',          name:'Tips',            version:'1.4', updated:'2023-08-08', rating:4.5, category:'Utility',    tags:['Utility','Communication'], desc:'Customizable tips broadcasted to all players on a configurable interval (default: every 5 minutes).' },
-  { id:'trash',         name:'Trash',           version:'1.1', updated:'2023-05-25', rating:4.4, category:'Utility',    tags:['Utility','Items'],         desc:'Adds a /trash command that opens a virtual trash bin so players can dispose of unwanted items cleanly.' },
-  { id:'warps',         name:'Warps',           version:'1.6', updated:'2023-08-15', rating:4.9, category:'Utility',    tags:['Utility','Navigation'],    desc:'Full warp system with /warp <name>, /setwarp, and /delwarp commands. Easy navigation around your server world.' },
-];
+// Initialize localStorage if not exists
+if (!localStorage.getItem('skriptsData')) {
+  const initialData = {
+    skripts: [
+      { id:'afk-pool',      name:'Afk Pool',       version:'1.2', updated:'2023-06-15', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Rewards'],       desc:'Configurable AFK Pool that gives rewards to players who stay in it for a set amount of time. Fully customizable reward types and intervals.' },
+      { id:'announcements', name:'Announcements',   version:'1.1', updated:'2023-05-20', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Communication'], desc:'Premade announcements with fully customizable messages and intervals for automatic broadcasting across the server.' },
+      { id:'autocompressor',name:'Autocompressor',  version:'1.3', updated:'2023-07-10', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','PvP'],           desc:'Automatically compresses items into a target item. Specifically made for GenPvP servers to handle bulk item stacking.' },
+      { id:'bans',          name:'Bans',            version:'2.0', updated:'2023-08-05', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Admin'],      desc:'Full-featured ban skript with tempbans, mutes, and other moderation tools. Supports offline banning and ban history.' },
+      { id:'clearchat',     name:'Clearchat',       version:'1.0', updated:'2023-04-18', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Utility'],    desc:'Clears the entire chat with a broadcast announcement. Perfect for moderators to quickly manage the chat environment.' },
+      { id:'discord',       name:'Discord',         version:'1.4', updated:'2023-07-25', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Integration'],   desc:'Adds a /discord command that shares your server\'s Discord invite link with players in chat.' },
+      { id:'firstjoin',     name:'FirstJoin',       version:'1.2', updated:'2023-06-30', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Spawn'],         desc:'Teleports a player to configurable spawn coordinates on their very first join. Improves the new-player experience.' },
+      { id:'gamemode',      name:'Gamemode',        version:'1.1', updated:'2023-05-15', ratingSum:0, ratingCount:0, category:'Admin',      tags:['Admin','Utility'],         desc:'Short aliases for /gamemode creative, survival, adventure, and spectator. Simplify mode-switching for admins and ops.' },
+      { id:'jail',          name:'Jail',            version:'1.3', updated:'2023-08-12', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Punishment'], desc:'Custom /jail command that restricts players to a set location for a defined amount of time — without banning them.' },
+      { id:'joinleave',     name:'JoinLeave',       version:'1.2', updated:'2023-07-05', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Communication'], desc:'Fully customizable join and leave messages. Supports placeholders for player names, ranks, and more.' },
+      { id:'keyall',        name:'Keyall',          version:'1.5', updated:'2023-08-20', ratingSum:0, ratingCount:0, category:'Economy',    tags:['Economy','Crates'],        desc:'Commands for giving every online player a specified crate key. Compatible with ExcellentCrates and similar plugins.' },
+      { id:'leaderboard',   name:'Leaderboard',     version:'1.4', updated:'2023-07-18', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Stats'],         desc:'Automatic leaderboard refresh for AJ Leaderboards. Keeps your server statistics always up-to-date.' },
+      { id:'mutechat',      name:'Mutechat',        version:'1.2', updated:'2023-06-22', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Admin'],      desc:'Mutes the global chat for all default-rank players so that only staff can talk. Essential for event management.' },
+      { id:'reports',       name:'Reports',         version:'1.6', updated:'2023-08-25', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Utility'],    desc:'Adds /report for players and /reportlist for staff to see a list of reported players and their reasons.' },
+      { id:'soulbound',     name:'Soulbound',       version:'1.3', updated:'2023-07-28', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Items'],         desc:'Marks items as soulbound so they return to the player\'s inventory on death. Perfect for protecting rare or custom items.' },
+      { id:'screenshare',   name:'Screenshare',     version:'1.7', updated:'2023-09-01', ratingSum:0, ratingCount:0, category:'Moderation', tags:['Moderation','Admin'],      desc:'Freezes a player in place and prompts them to join a Discord channel for an anti-cheat screenshare session.' },
+      { id:'staffchat',     name:'Staffchat',       version:'1.2', updated:'2023-06-10', ratingSum:0, ratingCount:0, category:'Admin',      tags:['Admin','Moderation'],      desc:'Staff-only chat channel using a /sc command. All messages are hidden from regular players.' },
+      { id:'tips',          name:'Tips',            version:'1.4', updated:'2023-08-08', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Communication'], desc:'Customizable tips broadcasted to all players on a configurable interval (default: every 5 minutes).' },
+      { id:'trash',         name:'Trash',           version:'1.1', updated:'2023-05-25', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Items'],         desc:'Adds a /trash command that opens a virtual trash bin so players can dispose of unwanted items cleanly.' },
+      { id:'warps',         name:'Warps',           version:'1.6', updated:'2023-08-15', ratingSum:0, ratingCount:0, category:'Utility',    tags:['Utility','Navigation'],    desc:'Full warp system with /warp <name>, /setwarp, and /delwarp commands. Easy navigation around your server world.' },
+    ],
+    totalDownloads: 0
+  };
+  localStorage.setItem('skriptsData', JSON.stringify(initialData));
+}
 
 // ─── SAMPLE CODE SNIPPETS (shown on detail page) ─────────────────────────
 const SAMPLES = {
-  'bans': `<span class="comment"># ── Bans Skript by Lavender Skript Hub ──</span>
+  'bans': `<span class="comment"># ── Bans Skript by 6p3l Skript Hub ──</span>
 <span class="keyword">command</span> /ban &lt;player&gt; [&lt;text&gt;]:
   <span class="keyword">trigger</span>:
     <span class="keyword">if</span> sender has permission <span class="string">"staff.ban"</span>:
       ban arg-1 due to arg-2 ? <span class="string">"No reason given"</span>
       broadcast <span class="string">"&c%arg-1% has been banned."</span>`,
-  'warps': `<span class="comment"># ── Warps Skript by Lavender Skript Hub ──</span>
+  'warps': `<span class="comment"># ── Warps Skript by 6p3l Skript Hub ──</span>
 <span class="keyword">command</span> /warp &lt;text&gt;:
   <span class="keyword">trigger</span>:
     <span class="keyword">set</span> {warp::%arg-1%} to player's location
     send <span class="string">"&aTeleporting to warp %arg-1%..."</span>`,
-  default: `<span class="comment"># ── Lavender Skript Hub ──</span>
+  default: `<span class="comment"># ── 6p3l Skript Hub ──</span>
 <span class="comment"># Download the .sk file and place it in:</span>
 <span class="comment"># /plugins/Skript/scripts/</span>
 <span class="comment"># Then run: /skript reload all</span>`,
@@ -616,8 +710,49 @@ const SAMPLES = {
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
 let currentFilter = 'all';
+let currentSkriptId = null;
+let selectedRating = 0;
 
-// ─── NAV ─────────────────────────────────────────────────────────────────────
+// ─── DOM ELEMENTS ────────────────────────────────────────────────────────────
+const ratingModal = document.getElementById('ratingModal');
+const stars = document.querySelectorAll('.star');
+const submitRatingBtn = document.getElementById('submitRating');
+const starsContainer = document.getElementById('starsContainer');
+
+// ─── INITIALIZATION ──────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  updateStats();
+  renderGrid();
+  
+  // Star hover effect
+  stars.forEach(star => {
+    star.addEventListener('mouseover', () => {
+      const value = parseInt(star.getAttribute('data-value'));
+      highlightStars(value);
+    });
+    
+    star.addEventListener('mouseout', () => {
+      highlightStars(selectedRating);
+    });
+    
+    star.addEventListener('click', () => {
+      selectedRating = parseInt(star.getAttribute('data-value'));
+      highlightStars(selectedRating);
+    });
+  });
+  
+  // Submit rating
+  submitRatingBtn.addEventListener('click', submitRating);
+  
+  // Close modal when clicking outside
+  ratingModal.addEventListener('click', (e) => {
+    if (e.target === ratingModal) {
+      closeModal();
+    }
+  });
+});
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
 function navigate(page, data) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => {
@@ -630,165 +765,4 @@ function navigate(page, data) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ─── GRID ─────────────────────────────────────────────────────────────────────
-function renderGrid() {
-  const query  = document.getElementById('search-input').value.toLowerCase().trim();
-  const filter = currentFilter;
-  const grid   = document.getElementById('skripts-grid');
-
-  const visible = SKRIPTS.filter(s => {
-    const matchFilter = filter === 'all' || s.category === filter || s.tags.includes(filter);
-    const matchSearch = !query || s.name.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query) || s.tags.some(t => t.toLowerCase().includes(query));
-    return matchFilter && matchSearch;
-  });
-
-  if (!visible.length) {
-    grid.innerHTML = `<div class="no-results"><i class="fas fa-ghost"></i><p>No skripts match your search.</p></div>`;
-    return;
-  }
-
-  grid.innerHTML = visible.map(s => `
-    <div class="card" onclick="navigate('detail', '${s.id}')">
-      <div class="card-head">
-        <h3>${s.name}</h3>
-        <span>v${s.version} · ${s.updated}</span>
-      </div>
-      <div class="card-body">
-        <p>${s.desc}</p>
-        <div class="tags">
-          <span class="tag green">Minecraft</span>
-          ${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-        </div>
-      </div>
-      <div class="card-foot">
-        <div class="rating"><i class="fas fa-star"></i> ${s.rating}</div>
-        <button class="dl-btn" onclick="event.stopPropagation(); downloadSkript('${s.id}')">
-          <i class="fas fa-download"></i> Download
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function setFilter(f) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
-  renderGrid();
-}
-
-function filterSkripts() { renderGrid(); }
-
-// ─── DETAIL ───────────────────────────────────────────────────────────────────
-function renderDetail(id) {
-  const s = SKRIPTS.find(x => x.id === id);
-  if (!s) return;
-  const code = SAMPLES[id] || SAMPLES.default;
-  document.getElementById('detail-content').innerHTML = `
-    <div class="detail-top">
-      <div class="detail-title">
-        <h1>${s.name}</h1>
-        <div class="meta">
-          <span><i class="fas fa-code-branch"></i> v${s.version}</span>
-          <span><i class="fas fa-calendar"></i> ${s.updated}</span>
-          <span><i class="fas fa-tag"></i> ${s.category}</span>
-        </div>
-      </div>
-      <button class="detail-dl" onclick="downloadSkript('${s.id}')">
-        <i class="fas fa-download"></i> Download .sk
-      </button>
-    </div>
-    <div class="detail-grid">
-      <div class="detail-main">
-        <h2>Description</h2>
-        <p>${s.desc} This skript is fully configurable — open the .sk file in any text editor to adjust messages, permissions, and behaviour to your server's needs.</p>
-        <h2>Preview</h2>
-        <pre>${code}</pre>
-        <h2>Installation</h2>
-        <p>1. Download the <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">${s.id}.sk</code> file below.<br/>
-        2. Place it in <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/plugins/Skript/scripts/</code> on your server.<br/>
-        3. Run <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/skript reload ${s.id}</code> or <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/skript reload all</code>.<br/>
-        4. Configure the options at the top of the file to your liking.</p>
-      </div>
-      <div class="detail-side">
-        <div class="side-card">
-          <h3>Details</h3>
-          <div class="side-row"><span>Version</span><span>v${s.version}</span></div>
-          <div class="side-row"><span>Category</span><span>${s.category}</span></div>
-          <div class="side-row"><span>Updated</span><span>${s.updated}</span></div>
-          <div class="side-row"><span>Rating</span><span>⭐ ${s.rating} / 5</span></div>
-          <div class="side-row"><span>Cost</span><span style="color:var(--green)">Free</span></div>
-        </div>
-        <div class="side-card">
-          <h3>Tags</h3>
-          <div class="tags" style="margin-top:4px">
-            <span class="tag green">Minecraft</span>
-            ${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-          </div>
-        </div>
-        <div class="side-card">
-          <h3>Need Help?</h3>
-          <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px">Join our Discord for fast support from the community.</p>
-          <button class="copy-btn" onclick="copyDiscord()"><i class="fab fa-discord"></i> Copy Discord Link</button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// ─── DOWNLOAD ─────────────────────────────────────────────────────────────────
-function downloadSkript(id) {
-  const s = SKRIPTS.find(x => x.id === id);
-  if (!s) return;
-  // Creates and downloads a placeholder .sk file
-  const content = `# ${s.name} — Lavender Skript Hub\n# Version: ${s.version}\n# Description: ${s.desc}\n\n# Place this file in /plugins/Skript/scripts/\n# Then run: /skript reload ${id}\n\n# ── Configuration ──\noptions:\n  prefix: "&7[&5Lavender&7] "\n\n# ── Main Skript ──\n`;
-  const blob = new Blob([content], { type: 'text/plain' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${id}.sk`;
-  a.click();
-  URL.revokeObjectURL(a.href);
-  showToast(`Downloading ${s.name}.sk`);
-}
-
-// ─── COPY HELPERS ─────────────────────────────────────────────────────────────
-function copyDiscord() {
-  navigator.clipboard.writeText(DISCORD_LINK).then(() => {
-    const btn = document.getElementById('discord-btn');
-    if (btn) { btn.classList.add('copied'); btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="fab fa-discord"></i> Copy Discord Link'; }, 2500); }
-    showToast('Discord link copied!');
-  });
-}
-
-function copyEmail() {
-  navigator.clipboard.writeText(EMAIL_ADDR).then(() => {
-    const btn = document.getElementById('email-btn');
-    if (btn) { btn.classList.add('copied'); btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="fas fa-copy"></i> Copy Email Address'; }, 2500); }
-    showToast('Email address copied!');
-  });
-}
-
-// ─── TOAST ─────────────────────────────────────────────────────────────────────
-let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
-}
-
-// ─── FAQ ──────────────────────────────────────────────────────────────────────
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
-  const isOpen = answer.classList.contains('open');
-  // close all
-  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
-  if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
-}
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-renderGrid();
-</script>
-</body>
-</html>
+// ─── GRID RENDER
