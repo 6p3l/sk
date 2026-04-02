@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavender Script Hub</title>
+    <title>Lavender Script Hub - Minecraft Skripts</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -17,6 +17,7 @@
             --text-muted: #b0b0b0;
             --accent: #9370DB;
             --hover: #7d5bbd;
+            --minecraft-green: #55FF55;
         }
 
         * {
@@ -70,6 +71,12 @@
             background-clip: text;
             color: transparent;
             font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--minecraft-green);
+            font-size: 1.2rem;
+            margin-left: 10px;
         }
 
         nav ul {
@@ -191,6 +198,7 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(147, 112, 219, 0.2);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
         .script-card:hover {
@@ -239,6 +247,11 @@
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
+        }
+
+        .minecraft-tag {
+            background: rgba(85, 255, 85, 0.2);
+            color: var(--minecraft-green);
         }
 
         .card-footer {
@@ -334,6 +347,27 @@
             transform: translateY(-5px);
         }
 
+        .minecraft-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 40px 0;
+            color: var(--text-muted);
+        }
+
+        .minecraft-divider::before,
+        .minecraft-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(147, 112, 219, 0.2);
+        }
+
+        .minecraft-divider span {
+            padding: 0 20px;
+            font-size: 1.2rem;
+            color: var(--minecraft-green);
+        }
+
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -359,61 +393,64 @@
     <div class="container">
         <header>
             <div class="logo">
-                <i class="fas fa-code"></i>
-                <h1>Lavender Script Hub</h1>
+                <i class="fas fa-cubes"></i>
+                <div>
+                    <h1>Lavender Script Hub <span>Minecraft</span></h1>
+                    <p>Premium Skripts for Your Server</p>
+                </div>
             </div>
             <nav>
                 <ul>
                     <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Scripts</a></li>
+                    <li><a href="#">Skripts</a></li>
                     <li><a href="#">Categories</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Support</a></li>
                 </ul>
             </nav>
         </header>
 
         <section class="hero">
-            <h2>Download Premium Scripts</h2>
-            <p>Discover and download high-quality scripts for your projects. All scripts are carefully crafted with attention to detail and performance.</p>
+            <h2>Premium Minecraft Skripts</h2>
+            <p>Enhance your Minecraft server with these carefully crafted skripts. Easy to install, configure, and perfect for any server.</p>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for scripts...">
+                <input type="text" placeholder="Search for skripts...">
             </div>
         </section>
 
         <div class="filters">
             <button class="filter-btn active">All</button>
-            <button class="filter-btn">Automation</button>
-            <button class="filter-btn">Utilities</button>
-            <button class="filter-btn">Games</button>
-            <button class="filter-btn">Tools</button>
-            <button class="filter-btn">Plugins</button>
+            <button class="filter-btn">Utility</button>
+            <button class="filter-btn">Moderation</button>
+            <button class="filter-btn">Economy</button>
+            <button class="filter-btn">Fun</button>
+            <button class="filter-btn">Admin</button>
+        </div>
+
+        <div class="minecraft-divider">
+            <span>Minecraft Skripts</span>
         </div>
 
         <div class="scripts-grid">
-            <!-- Script Card 1 -->
+            <!-- Afk Pool -->
             <div class="script-card">
                 <div class="card-header">
-                    <h3>Auto-Clicker Pro</h3>
-                    <p>Version 2.4 | Updated: 2023-06-15</p>
+                    <h3>Afk Pool</h3>
+                    <p>Version 1.2 | Updated: 2023-06-15</p>
                 </div>
                 <div class="card-body">
-                    <p>Advanced auto-clicker with customizable delays, hotkeys, and multiple click patterns for productivity.</p>
+                    <p>Configurable AFK Pool that gives rewards to players who stay in it for a certain amount of time.</p>
                     <div class="tags">
-                        <span class="tag">Automation</span>
-                        <span class="tag">Productivity</span>
+                        <span class="tag minecraft-tag">Minecraft</span>
                         <span class="tag">Utility</span>
+                        <span class="tag">Rewards</span>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="rating">
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span>4.7</span>
+                        <span>4.8</span>
                     </div>
                     <button class="download-btn">
                         <i class="fas fa-download"></i> Download
@@ -421,85 +458,23 @@
                 </div>
             </div>
 
-            <!-- Script Card 2 -->
+            <!-- Announcements -->
             <div class="script-card">
                 <div class="card-header">
-                    <h3>Web Scraper Toolkit</h3>
-                    <p>Version 1.8 | Updated: 2023-07-22</p>
+                    <h3>Announcements</h3>
+                    <p>Version 1.1 | Updated: 2023-05-20</p>
                 </div>
                 <div class="card-body">
-                    <p>Powerful web scraping tool with data export capabilities and customizable parsing rules.</p>
+                    <p>Premade announcements with customizable messages and intervals for automatic broadcasting.</p>
                     <div class="tags">
-                        <span class="tag">Data</span>
-                        <span class="tag">Automation</span>
-                        <span class="tag">Utilities</span>
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Communication</span>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="rating">
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>4.2</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Script Card 3 -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Pixel Art Generator</h3>
-                    <p>Version 3.1 | Updated: 2023-08-10</p>
-                </div>
-                <div class="card-body">
-                    <p>Simple yet powerful pixel art creation tool with palette customization and export options.</p>
-                    <div class="tags">
-                        <span class="tag">Graphics</span>
-                        <span class="tag">Tools</span>
-                        <span class="tag">Creative</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>5.0</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Script Card 4 -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Task Scheduler</h3>
-                    <p>Version 1.2 | Updated: 2023-05-30</p>
-                </div>
-                <div class="card-body">
-                    <p>Flexible task scheduling system with notifications and recurring tasks management.</p>
-                    <div class="tags">
-                        <span class="tag">Productivity</span>
-                        <span class="tag">Automation</span>
-                        <span class="tag">Utilities</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
                         <span>4.5</span>
                     </div>
                     <button class="download-btn">
@@ -508,57 +483,449 @@
                 </div>
             </div>
 
-            <!-- Script Card 5 -->
+            <!-- Autocompressor -->
             <div class="script-card">
                 <div class="card-header">
-                    <h3>Database Manager</h3>
-                    <p>Version 2.7 | Updated: 2023-09-05</p>
+                    <h3>Autocompressor</h3>
+                    <p>Version 1.3 | Updated: 2023-07-10</p>
                 </div>
                 <div class="card-body">
-                    <p>Comprehensive database management tool with query builder and data visualization.</p>
+                    <p>Automatically compresses items into another item. Specifically made for GenPvP servers.</p>
                     <div class="tags">
-                        <span class="tag">Database</span>
-                        <span class="tag">Tools</span>
-                        <span class="tag">Utilities</span>
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">PvP</span>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="rating">
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>4.0</span>
+                        <span>4.7</span>
                     </div>
                     <button class="download-btn">
-                        <i classfas fa-download"></i> Download
+                        <i class="fas fa-download"></i> Download
                     </button>
                 </div>
             </div>
 
-            <!-- Script Card 6 -->
+            <!-- Bans -->
             <div class="script-card">
                 <div class="card-header">
-                    <h3>Chat Bot Framework</h3>
-                    <p>Version 1.5 | Updated: 2023-07-18</p>
+                    <h3>Bans</h3>
+                    <p>Version 2.0 | Updated: 2023-08-05</p>
                 </div>
                 <div class="card-body">
-                    <p>Extensible chatbot framework with natural language processing and multi-platform support.</p>
+                    <p>Custom bans skript with tempbans, mutes, and other moderation tools for server management.</p>
                     <div class="tags">
-                        <span class="tag">AI</span>
-                        <span class="tag">Automation</span>
-                        <span class="tag">Plugins</span>
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Moderation</span>
+                        <span class="tag">Admin</span>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="rating">
                         <i class="fas fa-star"></i>
+                        <span>4.9</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Clearchat -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Clearchat</h3>
+                    <p>Version 1.0 | Updated: 2023-04-18</p>
+                </div>
+                <div class="card-body">
+                    <p>Clears chat with an announcement. Perfect for moderators to manage chat environment.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Moderation</span>
+                        <span class="tag">Utility</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
                         <i class="fas fa-star"></i>
+                        <span>4.3</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Discord -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Discord</h3>
+                    <p>Version 1.4 | Updated: 2023-07-25</p>
+                </div>
+                <div class="card-body">
+                    <p>Custom /discord command to share your server's Discord link with players easily.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Integration</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
                         <i class="fas fa-star"></i>
+                        <span>4.6</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- FirstJoin -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>FirstJoin</h3>
+                    <p>Version 1.2 | Updated: 2023-06-30</p>
+                </div>
+                <div class="card-body">
+                    <p>Teleports player to spawn coordinates on their first join. Great for new player experience.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Spawn</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                   极 <div class="rating">
                         <i class="fas fa-star"></i>
+                        <span>4.7</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gm (gamemode) -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Gamemode</h3>
+                    <p>Version 1.1 | Updated: 2023-05-15</p>
+                </div>
+                <div class="card-body">
+                    <p>Aliases for /gamemode creative, survival etc. Simplify mode switching for admins.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Admin</span>
+                        <span class="tag">Utility</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
                         <i class="fas fa-star"></i>
                         <span>4.8</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Jail -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Jail</h3>
+                    <p>Version 1.3 | Updated: 2023-08-12</p>
+                </div>
+                <div class="card-body">
+                    <p>Custom /jail command, restricts players for a certain amount of time without banning them.</p>
+                    <div class="tags">
+                        <极 class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Moderation</span>
+                        <span class="tag">Punishment</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.6</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- JoinLeave -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>JoinLeave</h3>
+                    <p>Version 1.2 | Updated: 2023-07-05</p>
+                </div>
+                <div class="card-body">
+                    <p>Custom messages for joining and leaving the server. Fully customizable welcome/farewell messages.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Communication</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.4</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Keyall -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Keyall</h3>
+                    <p>Version 1.5 | Updated: 2023-08-20</p>
+                </div>
+                <div class="card-body">
+                    <p>Custom commands for giving everybody a specified key to a crate. ExcellentCrates suitable.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Economy</span>
+                        <span class="tag">Crates</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></极>
+                        <span>4.9</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lb (leaderboard) -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Leaderboard</h3>
+                    <p>Version 1.4 | Updated: 2023-07-18</p>
+                </div>
+                <div class="card-body">
+                    <p>Auto-leaderboard refresh for AJ Leaderboards. Keep your server stats up to date automatically.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Stats</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.7</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mutechat -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Mutechat</h3>
+                    <p>Version 1.2 | Updated: 2023-06-22</p>
+                </div>
+                <div class="card-body">
+                    <p>Muting chat for every default player so that they cannot talk. Essential moderation tool.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Moderation</span>
+                        <span class="tag">Admin</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.5</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Reports</h3>
+                    <p>Version 1.6 | Updated: 2023-08-25</p>
+                </div>
+                <div class="极body">
+                    <p>Custom /report command, and for staff, /reportlist to see who got reported and for what reason.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Moderation</span>
+                        <span class="tag">Utility</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.8</span>
+                    </div>
+                    <button class极download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Soulbound -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Soulbound</h3>
+                    <p>Version 1.3 | Updated: 2023-07-28</p>
+                </div>
+                <div class="card-body">
+                    <p>Custom command for making an item come back after death. Perfect for valuable items.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Items</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.9</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ss (screenshare) -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Screenshare</h3>
+                    <p>Version 1.7 | Updated: 2023-09-01</p>
+                </div>
+                <div class="card-body">
+                    <p>Command for screensharing a person, freezing them so that they can join a desired discord channel.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Moderation</span>
+                        <span class="tag">Admin</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.7</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Staffchat -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Staffchat</h3>
+                    <p>Version 1.2 | Updated: 2023-06-10</p>
+                </div>
+                <div class="card-body">
+                    <p>Staff-only command, to chat amongst other staff. Keep moderation discussions private.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Moderation</span>
+                        <span class="tag">Admin</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.8</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Tips</h3>
+                    <p>Version 1.4 | Updated: 2023-08-08</p>
+                </div>
+                <div class="card-body">
+                    <p>Customizable tips that get sent every 5 minutes to everybody. Great for player guidance.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Communication</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.5</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Trash -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Trash</h3>
+                    <p>Version 1.1 | Updated: 2023-05-25</极>
+                </div>
+                <div class="card-body">
+                    <p>Custom disposal command. Lets players dispose of items easily without littering the world.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Items</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.4</span>
+                    </div>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Warps -->
+            <div class="script-card">
+                <div class="card-header">
+                    <h3>Warps</h3>
+                    <p>Version 1.6 | Updated: 2023-08-15</p>
+                </div>
+                <div class="card-body">
+                    <p>Custom warps system with /warp %warpname% command. Easy navigation for players.</p>
+                    <div class="tags">
+                        <span class="tag minecraft-tag">Minecraft</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">Navigation</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.9</span>
                     </div>
                     <button class="download-btn">
                         <i class="fas fa-download"></i> Download
@@ -570,13 +937,13 @@
         <div class="stats">
             <div class="stat-card">
                 <i class="fas fa-download"></i>
-                <h3>12,542</h3>
+                <h3>8,942</h3>
                 <p>Downloads</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-code"></i>
-                <h3>142</h3>
-                <p>Scripts</p>
+                <h3>19</h3>
+                <p>Skripts</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-star"></i>
@@ -584,21 +951,21 @@
                 <p>Average Rating</p>
             </div>
             <div class="stat-card">
-                <i class="fas fa-user"></i>
-                <h3>3,289</h3>
-                <p>Active Users</p>
+                <i class="fas fa-server"></i>
+                <h3>1,357</h3>
+                <p>Active Servers</p>
             </div>
         </div>
 
         <footer>
             <div class="social-links">
                 <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-discord"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
             <p>&copy; 2023 Lavender Script Hub. All rights reserved.</p>
-            <p>Designed with <i class="fas fa-heart" style="color: var(--lavender);"></i> for developers</p>
+            <p>Designed for Minecraft server administrators</p>
         </footer>
     </div>
 
@@ -607,7 +974,7 @@
         document.querySelectorAll('.download-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const scriptName = this.closest('.script-card').querySelector('h3').textContent;
-                alert(`Downloading ${scriptName}...`);
+                alert(`Downloading ${scriptName}...\n\nIn a real implementation, this would download the actual skript file.`);
             });
         });
 
@@ -616,7 +983,19 @@
             button.addEventListener('click', function() {
                 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
+                
+                // In a real implementation, this would filter the skripts
+                alert(`Filtering by ${this.textContent}...`);
             });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('keyup', function() {
+            if (this.value.length > 2) {
+                // In a real implementation, this would filter the skripts
+                alert(`Searching for: ${this.value}`);
+            }
         });
     </script>
 </body>
