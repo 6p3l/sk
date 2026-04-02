@@ -1,1002 +1,794 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavender Script Hub - Minecraft Skripts</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --lavender: #9370DB;
-            --dark-purple: #4B0082;
-            --darker-purple: #2E0854;
-            --light-purple: #E6E6FA;
-            --dark-bg: #121212;
-            --card-bg: #1e1e2e;
-            --text-light: #f0f0f0;
-            --text-muted: #b0b0b0;
-            --accent: #9370DB;
-            --hover: #7d5bbd;
-            --minecraft-green: #55FF55;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lavender Skript Hub | Minecraft Skripts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --lav: #9b72d4;
+      --lav-light: #c4a8f0;
+      --lav-dim: rgba(155, 114, 212, 0.18);
+      --lav-glow: rgba(155, 114, 212, 0.35);
+      --bg: #0d0d14;
+      --bg2: #12121e;
+      --card: #161625;
+      --card-hover: #1c1c30;
+      --border: rgba(155, 114, 212, 0.18);
+      --border-active: rgba(155, 114, 212, 0.6);
+      --text: #e8e4f0;
+      --muted: #8a85a0;
+      --green: #4ade80;
+      --green-dim: rgba(74, 222, 128, 0.15);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background: var(--dark-bg);
-            color: var(--text-light);
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(75, 0, 130, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(147, 112, 219, 0.1) 0%, transparent 20%);
-            background-attachment: fixed;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    /* ─── BG NOISE ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 15% 10%, rgba(155,114,212,.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 85% 90%, rgba(155,114,212,.08) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(147, 112, 219, 0.2);
-            margin-bottom: 40px;
-        }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    /* ─── HEADER ─── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,20,.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; gap: 20px;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--lav), #6a3fbf);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: #fff;
+      box-shadow: 0 0 16px var(--lav-glow);
+    }
+    .logo-text { font-size: 1.25rem; font-weight: 700; color: var(--text); letter-spacing: -.02em; }
+    .logo-text em { font-style: normal; color: var(--lav); }
 
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--lavender);
-            text-shadow: 0 0 10px rgba(147, 112, 219, 0.5);
-        }
+    nav { display: flex; align-items: center; gap: 4px; }
+    .nav-btn {
+      background: none; border: none; color: var(--muted);
+      font-family: 'Outfit', sans-serif; font-size: .95rem; font-weight: 500;
+      padding: 8px 16px; border-radius: 8px; cursor: pointer;
+      transition: color .2s, background .2s;
+    }
+    .nav-btn:hover { color: var(--text); background: var(--lav-dim); }
+    .nav-btn.active { color: var(--lav); background: var(--lav-dim); }
 
-        .logo h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(to right, var(--lavender), var(--light-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-        }
+    /* ─── PAGES ─── */
+    .page { display: none; }
+    .page.active { display: block; }
 
-        .logo span {
-            color: var(--minecraft-green);
-            font-size: 1.2rem;
-            margin-left: 10px;
-        }
+    /* ─── HOME HERO ─── */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--lav-dim); border: 1px solid var(--border-active);
+      border-radius: 99px; padding: 6px 16px;
+      font-size: .8rem; color: var(--lav-light); font-weight: 500;
+      margin-bottom: 28px; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800; letter-spacing: -.04em;
+      line-height: 1.05; margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 30%, var(--lav-light));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p {
+      font-size: 1.1rem; color: var(--muted); max-width: 560px;
+      margin: 0 auto 40px; line-height: 1.65;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--lav), #6a3fbf);
+      color: #fff; border: none; border-radius: 12px;
+      padding: 14px 30px; font-family: 'Outfit', sans-serif;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 24px var(--lav-glow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--lav-glow); }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      display: flex; gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      margin: 0 0 70px;
+    }
+    .stat {
+      flex: 1; background: var(--card);
+      padding: 22px 20px; text-align: center;
+    }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--lav); letter-spacing: -.03em; }
+    .stat-label { font-size: .8rem; color: var(--muted); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; }
 
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            padding: 8px 15px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
+    /* ─── SKRIPTS PAGE ─── */
+    .skripts-header {
+      padding: 50px 0 30px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .skripts-header h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.03em; }
+    .skripts-header p { color: var(--muted); font-size: .95rem; }
 
-        nav a:hover, nav a.active {
-            background: rgba(147, 112, 219, 0.2);
-            color: var(--lavender);
-        }
+    .toolbar {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      align-items: center; margin-bottom: 28px;
+    }
+    .search-wrap {
+      flex: 1; min-width: 220px; position: relative;
+    }
+    .search-wrap i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: .9rem; pointer-events: none;
+    }
+    .search-wrap input {
+      width: 100%;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); font-family: 'Outfit', sans-serif; font-size: .95rem;
+      padding: 11px 16px 11px 40px;
+      border-radius: 10px; outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .search-wrap input:focus {
+      border-color: var(--lav);
+      box-shadow: 0 0 0 3px var(--lav-dim);
+    }
+    .search-wrap input::placeholder { color: var(--muted); }
 
-        .hero {
-            text-align: center;
-            padding: 50px 20px;
-            margin-bottom: 50px;
-            background: rgba(30, 30, 46, 0.6);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(147, 112, 219, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); font-family: 'Outfit', sans-serif;
+      font-size: .85rem; font-weight: 500;
+      padding: 9px 18px; border-radius: 99px; cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn:hover { border-color: var(--lav); color: var(--lav); }
+    .filter-btn.active { background: var(--lav); border-color: var(--lav); color: #fff; }
 
-        .hero h2 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, var(--lavender), var(--light-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+    /* ─── GRID ─── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px; margin-bottom: 60px;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      cursor: pointer; display: flex; flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-active);
+      box-shadow: 0 12px 40px rgba(0,0,0,.4), 0 0 0 1px var(--lav-dim);
+    }
+    .card-head {
+      padding: 22px 22px 16px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(155,114,212,.07), transparent);
+    }
+    .card-head h3 {
+      font-size: 1.15rem; font-weight: 700; color: var(--text);
+      margin-bottom: 5px; letter-spacing: -.02em;
+    }
+    .card-head span {
+      font-size: .75rem; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .card-body { padding: 18px 22px; flex: 1; }
+    .card-body p { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-bottom: 16px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 99px;
+      background: var(--lav-dim); color: var(--lav-light);
+      border: 1px solid rgba(155,114,212,.25);
+    }
+    .tag.green { background: var(--green-dim); color: var(--green); border-color: rgba(74,222,128,.25); }
+    .card-foot {
+      padding: 16px 22px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .rating { display: flex; align-items: center; gap: 6px; font-size: .9rem; font-weight: 600; color: var(--lav-light); }
+    .rating i { color: #f5c542; font-size: .85rem; }
+    .dl-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--lav), #6a3fbf);
+      color: #fff; border: none; border-radius: 9px;
+      padding: 9px 18px; font-family: 'Outfit', sans-serif;
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .dl-btn:hover { transform: scale(1.04); box-shadow: 0 4px 16px var(--lav-glow); }
 
-        .search-bar {
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
+    .no-results {
+      grid-column: 1/-1; text-align: center;
+      padding: 60px 20px; color: var(--muted);
+    }
+    .no-results i { font-size: 2.5rem; margin-bottom: 16px; display: block; opacity: .4; }
+    .no-results p { font-size: 1rem; }
 
-        .search-bar input {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            border-radius: 50px;
-            border: 1px solid rgba(147, 112, 219, 0.3);
-            background: rgba(30, 30, 46, 0.8);
-            color: var(--text-light);
-            font-size: 1.1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+    /* ─── SCRIPT DETAIL PAGE ─── */
+    .detail-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); background: none; border: none;
+      font-family: 'Outfit', sans-serif; font-size: .9rem;
+      cursor: pointer; padding: 6px 0; margin: 32px 0 0;
+      transition: color .2s;
+    }
+    .detail-back:hover { color: var(--lav); }
+    .detail-wrap { padding: 30px 0 60px; }
+    .detail-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: 20px; margin-bottom: 40px;
+    }
+    .detail-title h1 {
+      font-size: 2.4rem; font-weight: 800; letter-spacing: -.04em;
+      background: linear-gradient(135deg, #fff, var(--lav-light));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: 8px;
+    }
+    .detail-title .meta {
+      font-size: .8rem; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .detail-dl {
+      display: flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--lav), #6a3fbf);
+      color: #fff; border: none; border-radius: 12px;
+      padding: 14px 28px; font-family: 'Outfit', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      box-shadow: 0 4px 24px var(--lav-glow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .detail-dl:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--lav-glow); }
 
-        .search-bar input:focus {
-            border-color: var(--lavender);
-            box-shadow: 0 0 15px rgba(147, 112, 219, 0.4);
-        }
+    .detail-grid { display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
+    @media (max-width: 768px) { .detail-grid { grid-template-columns: 1fr; } }
 
-        .search-bar i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--lavender);
-        }
+    .detail-main {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 30px;
+    }
+    .detail-main h2 {
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em;
+      margin-bottom: 14px; color: var(--lav-light);
+    }
+    .detail-main p { color: var(--muted); line-height: 1.75; margin-bottom: 24px; font-size: .95rem; }
+    .detail-main pre {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .8rem; color: var(--lav-light);
+      line-height: 1.7; margin-bottom: 24px;
+    }
+    .detail-main .comment { color: #5a5a7a; }
+    .detail-main .keyword { color: var(--lav); }
+    .detail-main .string { color: var(--green); }
+    .detail-main .number { color: #f5c542; }
 
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin: 30px 0;
-        }
+    .detail-side { display: flex; flex-direction: column; gap: 16px; }
+    .side-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px;
+    }
+    .side-card h3 { font-size: .85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+    .side-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .9rem; }
+    .side-row:last-child { border-bottom: none; }
+    .side-row span:first-child { color: var(--muted); }
+    .side-row span:last-child { color: var(--text); font-weight: 600; }
 
-        .filter-btn {
-            background: rgba(30, 30, 46, 0.8);
-            border: 1px solid rgba(147, 112, 219, 0.3);
-            color: var(--text-light);
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
+    /* ─── SUPPORT PAGE ─── */
+    .support-hero {
+      padding: 60px 0 50px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 50px;
+    }
+    .support-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--lav-dim); border: 1px solid var(--border-active);
+      border-radius: 99px; padding: 6px 16px;
+      font-size: .75rem; color: var(--lav-light); font-weight: 600;
+      margin-bottom: 20px; letter-spacing: .06em; text-transform: uppercase;
+    }
+    .support-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; letter-spacing: -.04em; margin-bottom: 14px;
+    }
+    .support-hero p { color: var(--muted); font-size: 1rem; line-height: 1.65; max-width: 520px; }
 
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--lavender);
-            color: white;
-            border-color: var(--lavender);
-        }
+    .contact-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-bottom: 50px; }
+    .contact-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .contact-card:hover { border-color: var(--border-active); transform: translateY(-4px); }
+    .contact-icon {
+      width: 50px; height: 50px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 18px;
+    }
+    .contact-icon.discord { background: rgba(88,101,242,.18); color: #5865f2; }
+    .contact-icon.email { background: var(--lav-dim); color: var(--lav-light); }
+    .contact-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -.02em; }
+    .contact-card p { color: var(--muted); font-size: .88rem; line-height: 1.6; margin-bottom: 18px; }
+    .copy-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg2); border: 1px solid var(--border);
+      color: var(--text); font-family: 'Outfit', sans-serif;
+      font-size: .85rem; font-weight: 600; padding: 10px 18px;
+      border-radius: 9px; cursor: pointer; width: 100%;
+      justify-content: center; transition: all .2s;
+    }
+    .copy-btn:hover { border-color: var(--lav); color: var(--lav); }
+    .copy-btn.copied { background: var(--green-dim); border-color: var(--green); color: var(--green); }
 
-        .scripts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
+    .faq { margin-bottom: 60px; }
+    .faq h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 24px; }
+    .faq-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; margin-bottom: 10px;
+    }
+    .faq-q {
+      width: 100%; background: none; border: none;
+      color: var(--text); font-family: 'Outfit', sans-serif;
+      font-size: .95rem; font-weight: 600;
+      padding: 18px 22px; text-align: left;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; transition: background .2s;
+    }
+    .faq-q:hover { background: var(--lav-dim); }
+    .faq-q i { color: var(--lav); transition: transform .3s; font-size: .8rem; }
+    .faq-q.open i { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .35s ease, padding .3s ease;
+      padding: 0 22px;
+      color: var(--muted); font-size: .9rem; line-height: 1.7;
+    }
+    .faq-a.open { max-height: 300px; padding: 0 22px 18px; }
 
-        .script-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(147, 112, 219, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+      background: var(--card); border: 1px solid var(--border-active);
+      border-radius: 12px; padding: 14px 20px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: .9rem; font-weight: 500;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      transform: translateY(80px); opacity: 0;
+      transition: transform .3s ease, opacity .3s ease;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast i { color: var(--green); }
 
-        .script-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(147, 112, 219, 0.2);
-            border-color: var(--lavender);
-        }
-
-        .card-header {
-            padding: 20px;
-            border-bottom: 1px solid rgba(147, 112, 219, 0.1);
-            background: rgba(75, 0, 130, 0.1);
-        }
-
-        .card-header h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: var(--lavender);
-        }
-
-        .card-header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-body p {
-            margin-bottom: 20px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tag {
-            background: rgba(147, 112, 219, 0.2);
-            color: var(--lavender);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        .minecraft-tag {
-            background: rgba(85, 255, 85, 0.2);
-            color: var(--minecraft-green);
-        }
-
-        .card-footer {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(147, 112, 219, 0.1);
-        }
-
-        .download-btn {
-            background: var(--lavender);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .download-btn:hover {
-            background: var(--hover);
-            transform: scale(1.05);
-        }
-
-        .rating {
-            color: var(--lavender);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: rgba(30, 30, 46, 0.6);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            min-width: 180px;
-            border: 1px solid rgba(147, 112, 219, 0.2);
-        }
-
-        .stat-card i {
-            font-size: 2.5rem;
-            color: var(--lavender);
-            margin-bottom: 15px;
-        }
-
-        .stat-card h3 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--lavender);
-        }
-
-        .stat-card p {
-            color: var(--text-muted);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(147, 112, 219, 0.2);
-            margin-top: 40px;
-            color: var(--text-muted);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .social-links a {
-            color: var(--text-light);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--lavender);
-            transform: translateY(-5px);
-        }
-
-        .minecraft-divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 40px 0;
-            color: var(--text-muted);
-        }
-
-        .minecraft-divider::before,
-        .minecraft-divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(147, 112, 219, 0.2);
-        }
-
-        .minecraft-divider span {
-            padding: 0 20px;
-            font-size: 1.2rem;
-            color: var(--minecraft-green);
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            
-            .scripts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .stats-bar { flex-direction: column; gap: 0; }
+      .toolbar { flex-direction: column; }
+      .search-wrap { min-width: unset; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-cubes"></i>
-                <div>
-                    <h1>Lavender Script Hub <span>Minecraft</span></h1>
-                    <p>Premium Skripts for Your Server</p>
-                </div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Skripts</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Tutorials</a></li>
-                    <li><a href="#">Support</a></li>
-                </ul>
-            </nav>
-        </header>
 
-        <section class="hero">
-            <h2>Premium Minecraft Skripts</h2>
-            <p>Enhance your Minecraft server with these carefully crafted skripts. Easy to install, configure, and perfect for any server.</p>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for skripts...">
-            </div>
-        </section>
+<!-- HEADER -->
+<header>
+  <div class="wrap header-inner">
+    <div class="logo" onclick="navigate('home')">
+      <div class="logo-icon"><i class="fas fa-cubes"></i></div>
+      <span class="logo-text">Lavender <em>Skript</em> Hub</span>
+    </div>
+    <nav>
+      <button class="nav-btn active" data-page="home" onclick="navigate('home')">Home</button>
+      <button class="nav-btn" data-page="skripts" onclick="navigate('skripts')">Skripts</button>
+      <button class="nav-btn" data-page="support" onclick="navigate('support')">Support</button>
+    </nav>
+  </div>
+</header>
 
-        <div class="filters">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Utility</button>
-            <button class="filter-btn">Moderation</button>
-            <button class="filter-btn">Economy</button>
-            <button class="filter-btn">Fun</button>
-            <button class="filter-btn">Admin</button>
-        </div>
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toast-msg">Copied!</span></div>
 
-        <div class="minecraft-divider">
-            <span>Minecraft Skripts</span>
-        </div>
+<!-- ══════════════ HOME PAGE ══════════════ -->
+<div class="page active" id="page-home">
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-badge"><i class="fas fa-bolt"></i> Free & Open Source</div>
+      <h1>Premium Skripts<br/>for Your Server</h1>
+      <p>Carefully crafted Minecraft Skripts — easy to install, fully configurable, and built for every server type.</p>
+      <button class="hero-cta" onclick="navigate('skripts')">
+        <i class="fas fa-download"></i> Browse Skripts
+      </button>
+    </section>
 
-        <div class="scripts-grid">
-            <!-- Afk Pool -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Afk Pool</h3>
-                    <p>Version 1.2 | Updated: 2023-06-15</p>
-                </div>
-                <div class="card-body">
-                    <p>Configurable AFK Pool that gives rewards to players who stay in it for a certain amount of time.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Rewards</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-num">8,942</div><div class="stat-label">Downloads</div></div>
+      <div class="stat"><div class="stat-num">19</div><div class="stat-label">Skripts</div></div>
+      <div class="stat"><div class="stat-num">4.7</div><div class="stat-label">Avg Rating</div></div>
+      <div class="stat"><div class="stat-num">1,357</div><div class="stat-label">Active Servers</div></div>
+    </div>
+  </div>
+</div>
 
-            <!-- Announcements -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Announcements</h3>
-                    <p>Version 1.1 | Updated: 2023-05-20</p>
-                </div>
-                <div class="card-body">
-                    <p>Premade announcements with customizable messages and intervals for automatic broadcasting.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Communication</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Autocompressor -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Autocompressor</h3>
-                    <p>Version 1.3 | Updated: 2023-07-10</p>
-                </div>
-                <div class="card-body">
-                    <p>Automatically compresses items into another item. Specifically made for GenPvP servers.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">PvP</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Bans -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Bans</h3>
-                    <p>Version 2.0 | Updated: 2023-08-05</p>
-                </div>
-                <div class="card-body">
-                    <p>Custom bans skript with tempbans, mutes, and other moderation tools for server management.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Moderation</span>
-                        <span class="tag">Admin</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Clearchat -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Clearchat</h3>
-                    <p>Version 1.0 | Updated: 2023-04-18</p>
-                </div>
-                <div class="card-body">
-                    <p>Clears chat with an announcement. Perfect for moderators to manage chat environment.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Moderation</span>
-                        <span class="tag">Utility</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.3</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Discord -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Discord</h3>
-                    <p>Version 1.4 | Updated: 2023-07-25</p>
-                </div>
-                <div class="card-body">
-                    <p>Custom /discord command to share your server's Discord link with players easily.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Integration</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.6</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- FirstJoin -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>FirstJoin</h3>
-                    <p>Version 1.2 | Updated: 2023-06-30</p>
-                </div>
-                <div class="card-body">
-                    <p>Teleports player to spawn coordinates on their first join. Great for new player experience.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Spawn</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                   极 <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Gm (gamemode) -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Gamemode</h3>
-                    <p>Version 1.1 | Updated: 2023-05-15</p>
-                </div>
-                <div class="card-body">
-                    <p>Aliases for /gamemode creative, survival etc. Simplify mode switching for admins.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Admin</span>
-                        <span class="tag">Utility</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Jail -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Jail</h3>
-                    <p>Version 1.3 | Updated: 2023-08-12</p>
-                </div>
-                <div class="card-body">
-                    <p>Custom /jail command, restricts players for a certain amount of time without banning them.</p>
-                    <div class="tags">
-                        <极 class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Moderation</span>
-                        <span class="tag">Punishment</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.6</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- JoinLeave -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>JoinLeave</h3>
-                    <p>Version 1.2 | Updated: 2023-07-05</p>
-                </div>
-                <div class="card-body">
-                    <p>Custom messages for joining and leaving the server. Fully customizable welcome/farewell messages.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Communication</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.4</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Keyall -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Keyall</h3>
-                    <p>Version 1.5 | Updated: 2023-08-20</p>
-                </div>
-                <div class="card-body">
-                    <p>Custom commands for giving everybody a specified key to a crate. ExcellentCrates suitable.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Economy</span>
-                        <span class="tag">Crates</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></极>
-                        <span>4.9</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Lb (leaderboard) -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Leaderboard</h3>
-                    <p>Version 1.4 | Updated: 2023-07-18</p>
-                </div>
-                <div class="card-body">
-                    <p>Auto-leaderboard refresh for AJ Leaderboards. Keep your server stats up to date automatically.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Stats</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mutechat -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Mutechat</h3>
-                    <p>Version 1.2 | Updated: 2023-06-22</p>
-                </div>
-                <div class="card-body">
-                    <p>Muting chat for every default player so that they cannot talk. Essential moderation tool.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Moderation</span>
-                        <span class="tag">Admin</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Reports -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Reports</h3>
-                    <p>Version 1.6 | Updated: 2023-08-25</p>
-                </div>
-                <div class="极body">
-                    <p>Custom /report command, and for staff, /reportlist to see who got reported and for what reason.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Moderation</span>
-                        <span class="tag">Utility</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8</span>
-                    </div>
-                    <button class极download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Soulbound -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Soulbound</h3>
-                    <p>Version 1.3 | Updated: 2023-07-28</p>
-                </div>
-                <div class="card-body">
-                    <p>Custom command for making an item come back after death. Perfect for valuable items.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Items</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Ss (screenshare) -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Screenshare</h3>
-                    <p>Version 1.7 | Updated: 2023-09-01</p>
-                </div>
-                <div class="card-body">
-                    <p>Command for screensharing a person, freezing them so that they can join a desired discord channel.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Moderation</span>
-                        <span class="tag">Admin</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Staffchat -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Staffchat</h3>
-                    <p>Version 1.2 | Updated: 2023-06-10</p>
-                </div>
-                <div class="card-body">
-                    <p>Staff-only command, to chat amongst other staff. Keep moderation discussions private.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Moderation</span>
-                        <span class="tag">Admin</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tips -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Tips</h3>
-                    <p>Version 1.4 | Updated: 2023-08-08</p>
-                </div>
-                <div class="card-body">
-                    <p>Customizable tips that get sent every 5 minutes to everybody. Great for player guidance.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Communication</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Trash -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Trash</h3>
-                    <p>Version 1.1 | Updated: 2023-05-25</极>
-                </div>
-                <div class="card-body">
-                    <p>Custom disposal command. Lets players dispose of items easily without littering the world.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Items</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.4</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-
-            <!-- Warps -->
-            <div class="script-card">
-                <div class="card-header">
-                    <h3>Warps</h3>
-                    <p>Version 1.6 | Updated: 2023-08-15</p>
-                </div>
-                <div class="card-body">
-                    <p>Custom warps system with /warp %warpname% command. Easy navigation for players.</p>
-                    <div class="tags">
-                        <span class="tag minecraft-tag">Minecraft</span>
-                        <span class="tag">Utility</span>
-                        <span class="tag">Navigation</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9</span>
-                    </div>
-                    <button class="download-btn">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="stats">
-            <div class="stat-card">
-                <i class="fas fa-download"></i>
-                <h3>8,942</h3>
-                <p>Downloads</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-code"></i>
-                <h3>19</h3>
-                <p>Skripts</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-star"></i>
-                <h3>4.7</h3>
-                <p>Average Rating</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-server"></i>
-                <h3>1,357</h3>
-                <p>Active Servers</p>
-            </div>
-        </div>
-
-        <footer>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-discord"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
-            <p>&copy; 2023 Lavender Script Hub. All rights reserved.</p>
-            <p>Designed for Minecraft server administrators</p>
-        </footer>
+<!-- ══════════════ SKRIPTS PAGE ══════════════ -->
+<div class="page" id="page-skripts">
+  <div class="wrap">
+    <div class="skripts-header">
+      <h2>All Skripts</h2>
+      <p>19 skripts available — click any card to view details & download</p>
     </div>
 
-    <script>
-        // Simple interactivity for download buttons
-        document.querySelectorAll('.download-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const scriptName = this.closest('.script-card').querySelector('h3').textContent;
-                alert(`Downloading ${scriptName}...\n\nIn a real implementation, this would download the actual skript file.`);
-            });
-        });
+    <div class="toolbar">
+      <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search-input" placeholder="Search skripts…" oninput="filterSkripts()" />
+      </div>
+      <div class="filters" id="filter-bar">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+        <button class="filter-btn" data-filter="Utility" onclick="setFilter('Utility')">Utility</button>
+        <button class="filter-btn" data-filter="Moderation" onclick="setFilter('Moderation')">Moderation</button>
+        <button class="filter-btn" data-filter="Economy" onclick="setFilter('Economy')">Economy</button>
+        <button class="filter-btn" data-filter="Fun" onclick="setFilter('Fun')">Fun</button>
+        <button class="filter-btn" data-filter="Admin" onclick="setFilter('Admin')">Admin</button>
+      </div>
+    </div>
 
-        // Filter button functionality
-        document.querySelectorAll('.filter-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                // In a real implementation, this would filter the skripts
-                alert(`Filtering by ${this.textContent}...`);
-            });
-        });
+    <div class="grid" id="skripts-grid"></div>
+  </div>
+</div>
 
-        // Search functionality
-        const searchInput = document.querySelector('.search-bar input');
-        searchInput.addEventListener('keyup', function() {
-            if (this.value.length > 2) {
-                // In a real implementation, this would filter the skripts
-                alert(`Searching for: ${this.value}`);
-            }
-        });
-    </script>
+<!-- ══════════════ DETAIL PAGE ══════════════ -->
+<div class="page" id="page-detail">
+  <div class="wrap">
+    <button class="detail-back" onclick="navigate('skripts')"><i class="fas fa-arrow-left"></i> Back to Skripts</button>
+    <div class="detail-wrap" id="detail-content"></div>
+  </div>
+</div>
+
+<!-- ══════════════ SUPPORT PAGE ══════════════ -->
+<div class="page" id="page-support">
+  <div class="wrap">
+    <section class="support-hero">
+      <div class="support-badge"><i class="fas fa-headset"></i> Support</div>
+      <h1>We've got you<br/>covered</h1>
+      <p>Need help setting up a skript, found a bug, or have a suggestion? Reach out through Discord or email — we reply fast.</p>
+    </section>
+
+    <div class="contact-cards">
+      <!-- DISCORD -->
+      <div class="contact-card">
+        <div class="contact-icon discord"><i class="fab fa-discord"></i></div>
+        <h3>Join our Discord</h3>
+        <p>Get real-time help, share your server, or chat with other Skript devs in our community.</p>
+        <button class="copy-btn" id="discord-btn" onclick="copyDiscord()">
+          <i class="fab fa-discord"></i> Copy Discord Link
+        </button>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="contact-card">
+        <div class="contact-icon email"><i class="fas fa-envelope"></i></div>
+        <h3>Send us an Email</h3>
+        <p>For business enquiries, skript requests, or anything that's better handled over email.</p>
+        <button class="copy-btn" id="email-btn" onclick="copyEmail()">
+          <i class="fas fa-copy"></i> Copy Email Address
+        </button>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do I install a Skript? <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-a">
+          Download the .sk file, place it inside your server's <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/plugins/Skript/scripts/</code> folder, then run <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/skript reload all</code> in-game or from the console. Make sure the Skript plugin is installed first.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What Minecraft version do these work on? <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-a">
+          All skripts are tested on Spigot/Paper 1.19–1.20.x. Most skripts will also work on 1.16+ with the latest version of the Skript plugin installed.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Are these skripts free to use? <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-a">
+          Yes — every skript on this hub is completely free to use on any server. You're also free to modify them as you see fit. Attribution is appreciated but not required.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          I found a bug — how do I report it? <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-a">
+          The fastest way is to open a ticket in our Discord server. You can also email us with the skript name, your server version, and a description of the issue.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I request a custom skript? <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-a">
+          Absolutely! Drop your idea in the Discord #skript-requests channel or send us an email with a detailed description of what you need. We'll let you know if it's something we can add.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const DISCORD_LINK = 'https://discord.gg/yourserver'; // ← replace with yours
+const EMAIL_ADDR   = 'contact@lavenderskrip.net';     // ← replace with yours
+
+const SKRIPTS = [
+  { id:'afk-pool',      name:'Afk Pool',       version:'1.2', updated:'2023-06-15', rating:4.8, category:'Utility',    tags:['Utility','Rewards'],       desc:'Configurable AFK Pool that gives rewards to players who stay in it for a set amount of time. Fully customizable reward types and intervals.' },
+  { id:'announcements', name:'Announcements',   version:'1.1', updated:'2023-05-20', rating:4.5, category:'Utility',    tags:['Utility','Communication'], desc:'Premade announcements with fully customizable messages and intervals for automatic broadcasting across the server.' },
+  { id:'autocompressor',name:'Autocompressor',  version:'1.3', updated:'2023-07-10', rating:4.7, category:'Utility',    tags:['Utility','PvP'],           desc:'Automatically compresses items into a target item. Specifically made for GenPvP servers to handle bulk item stacking.' },
+  { id:'bans',          name:'Bans',            version:'2.0', updated:'2023-08-05', rating:4.9, category:'Moderation', tags:['Moderation','Admin'],      desc:'Full-featured ban skript with tempbans, mutes, and other moderation tools. Supports offline banning and ban history.' },
+  { id:'clearchat',     name:'Clearchat',       version:'1.0', updated:'2023-04-18', rating:4.3, category:'Moderation', tags:['Moderation','Utility'],    desc:'Clears the entire chat with a broadcast announcement. Perfect for moderators to quickly manage the chat environment.' },
+  { id:'discord',       name:'Discord',         version:'1.4', updated:'2023-07-25', rating:4.6, category:'Utility',    tags:['Utility','Integration'],   desc:'Adds a /discord command that shares your server\'s Discord invite link with players in chat.' },
+  { id:'firstjoin',     name:'FirstJoin',       version:'1.2', updated:'2023-06-30', rating:4.7, category:'Utility',    tags:['Utility','Spawn'],         desc:'Teleports a player to configurable spawn coordinates on their very first join. Improves the new-player experience.' },
+  { id:'gamemode',      name:'Gamemode',        version:'1.1', updated:'2023-05-15', rating:4.8, category:'Admin',      tags:['Admin','Utility'],         desc:'Short aliases for /gamemode creative, survival, adventure, and spectator. Simplify mode-switching for admins and ops.' },
+  { id:'jail',          name:'Jail',            version:'1.3', updated:'2023-08-12', rating:4.6, category:'Moderation', tags:['Moderation','Punishment'], desc:'Custom /jail command that restricts players to a set location for a defined amount of time — without banning them.' },
+  { id:'joinleave',     name:'JoinLeave',       version:'1.2', updated:'2023-07-05', rating:4.4, category:'Utility',    tags:['Utility','Communication'], desc:'Fully customizable join and leave messages. Supports placeholders for player names, ranks, and more.' },
+  { id:'keyall',        name:'Keyall',          version:'1.5', updated:'2023-08-20', rating:4.9, category:'Economy',    tags:['Economy','Crates'],        desc:'Commands for giving every online player a specified crate key. Compatible with ExcellentCrates and similar plugins.' },
+  { id:'leaderboard',   name:'Leaderboard',     version:'1.4', updated:'2023-07-18', rating:4.7, category:'Utility',    tags:['Utility','Stats'],         desc:'Automatic leaderboard refresh for AJ Leaderboards. Keeps your server statistics always up-to-date.' },
+  { id:'mutechat',      name:'Mutechat',        version:'1.2', updated:'2023-06-22', rating:4.5, category:'Moderation', tags:['Moderation','Admin'],      desc:'Mutes the global chat for all default-rank players so that only staff can talk. Essential for event management.' },
+  { id:'reports',       name:'Reports',         version:'1.6', updated:'2023-08-25', rating:4.8, category:'Moderation', tags:['Moderation','Utility'],    desc:'Adds /report for players and /reportlist for staff to see a list of reported players and their reasons.' },
+  { id:'soulbound',     name:'Soulbound',       version:'1.3', updated:'2023-07-28', rating:4.9, category:'Utility',    tags:['Utility','Items'],         desc:'Marks items as soulbound so they return to the player\'s inventory on death. Perfect for protecting rare or custom items.' },
+  { id:'screenshare',   name:'Screenshare',     version:'1.7', updated:'2023-09-01', rating:4.7, category:'Moderation', tags:['Moderation','Admin'],      desc:'Freezes a player in place and prompts them to join a Discord channel for an anti-cheat screenshare session.' },
+  { id:'staffchat',     name:'Staffchat',       version:'1.2', updated:'2023-06-10', rating:4.8, category:'Admin',      tags:['Admin','Moderation'],      desc:'Staff-only chat channel using a /sc command. All messages are hidden from regular players.' },
+  { id:'tips',          name:'Tips',            version:'1.4', updated:'2023-08-08', rating:4.5, category:'Utility',    tags:['Utility','Communication'], desc:'Customizable tips broadcasted to all players on a configurable interval (default: every 5 minutes).' },
+  { id:'trash',         name:'Trash',           version:'1.1', updated:'2023-05-25', rating:4.4, category:'Utility',    tags:['Utility','Items'],         desc:'Adds a /trash command that opens a virtual trash bin so players can dispose of unwanted items cleanly.' },
+  { id:'warps',         name:'Warps',           version:'1.6', updated:'2023-08-15', rating:4.9, category:'Utility',    tags:['Utility','Navigation'],    desc:'Full warp system with /warp <name>, /setwarp, and /delwarp commands. Easy navigation around your server world.' },
+];
+
+// ─── SAMPLE CODE SNIPPETS (shown on detail page) ─────────────────────────
+const SAMPLES = {
+  'bans': `<span class="comment"># ── Bans Skript by Lavender Skript Hub ──</span>
+<span class="keyword">command</span> /ban &lt;player&gt; [&lt;text&gt;]:
+  <span class="keyword">trigger</span>:
+    <span class="keyword">if</span> sender has permission <span class="string">"staff.ban"</span>:
+      ban arg-1 due to arg-2 ? <span class="string">"No reason given"</span>
+      broadcast <span class="string">"&c%arg-1% has been banned."</span>`,
+  'warps': `<span class="comment"># ── Warps Skript by Lavender Skript Hub ──</span>
+<span class="keyword">command</span> /warp &lt;text&gt;:
+  <span class="keyword">trigger</span>:
+    <span class="keyword">set</span> {warp::%arg-1%} to player's location
+    send <span class="string">"&aTeleporting to warp %arg-1%..."</span>`,
+  default: `<span class="comment"># ── Lavender Skript Hub ──</span>
+<span class="comment"># Download the .sk file and place it in:</span>
+<span class="comment"># /plugins/Skript/scripts/</span>
+<span class="comment"># Then run: /skript reload all</span>`,
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let currentFilter = 'all';
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function navigate(page, data) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.page === page || (page === 'detail' && b.dataset.page === 'skripts'));
+  });
+  const target = page === 'detail' ? 'detail' : page;
+  document.getElementById('page-' + target).classList.add('active');
+  if (page === 'skripts') renderGrid();
+  if (page === 'detail' && data) renderDetail(data);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── GRID ─────────────────────────────────────────────────────────────────────
+function renderGrid() {
+  const query  = document.getElementById('search-input').value.toLowerCase().trim();
+  const filter = currentFilter;
+  const grid   = document.getElementById('skripts-grid');
+
+  const visible = SKRIPTS.filter(s => {
+    const matchFilter = filter === 'all' || s.category === filter || s.tags.includes(filter);
+    const matchSearch = !query || s.name.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query) || s.tags.some(t => t.toLowerCase().includes(query));
+    return matchFilter && matchSearch;
+  });
+
+  if (!visible.length) {
+    grid.innerHTML = `<div class="no-results"><i class="fas fa-ghost"></i><p>No skripts match your search.</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = visible.map(s => `
+    <div class="card" onclick="navigate('detail', '${s.id}')">
+      <div class="card-head">
+        <h3>${s.name}</h3>
+        <span>v${s.version} · ${s.updated}</span>
+      </div>
+      <div class="card-body">
+        <p>${s.desc}</p>
+        <div class="tags">
+          <span class="tag green">Minecraft</span>
+          ${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="card-foot">
+        <div class="rating"><i class="fas fa-star"></i> ${s.rating}</div>
+        <button class="dl-btn" onclick="event.stopPropagation(); downloadSkript('${s.id}')">
+          <i class="fas fa-download"></i> Download
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  renderGrid();
+}
+
+function filterSkripts() { renderGrid(); }
+
+// ─── DETAIL ───────────────────────────────────────────────────────────────────
+function renderDetail(id) {
+  const s = SKRIPTS.find(x => x.id === id);
+  if (!s) return;
+  const code = SAMPLES[id] || SAMPLES.default;
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-top">
+      <div class="detail-title">
+        <h1>${s.name}</h1>
+        <div class="meta">
+          <span><i class="fas fa-code-branch"></i> v${s.version}</span>
+          <span><i class="fas fa-calendar"></i> ${s.updated}</span>
+          <span><i class="fas fa-tag"></i> ${s.category}</span>
+        </div>
+      </div>
+      <button class="detail-dl" onclick="downloadSkript('${s.id}')">
+        <i class="fas fa-download"></i> Download .sk
+      </button>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-main">
+        <h2>Description</h2>
+        <p>${s.desc} This skript is fully configurable — open the .sk file in any text editor to adjust messages, permissions, and behaviour to your server's needs.</p>
+        <h2>Preview</h2>
+        <pre>${code}</pre>
+        <h2>Installation</h2>
+        <p>1. Download the <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">${s.id}.sk</code> file below.<br/>
+        2. Place it in <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/plugins/Skript/scripts/</code> on your server.<br/>
+        3. Run <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/skript reload ${s.id}</code> or <code style="color:var(--lav-light);font-family:'JetBrains Mono',monospace">/skript reload all</code>.<br/>
+        4. Configure the options at the top of the file to your liking.</p>
+      </div>
+      <div class="detail-side">
+        <div class="side-card">
+          <h3>Details</h3>
+          <div class="side-row"><span>Version</span><span>v${s.version}</span></div>
+          <div class="side-row"><span>Category</span><span>${s.category}</span></div>
+          <div class="side-row"><span>Updated</span><span>${s.updated}</span></div>
+          <div class="side-row"><span>Rating</span><span>⭐ ${s.rating} / 5</span></div>
+          <div class="side-row"><span>Cost</span><span style="color:var(--green)">Free</span></div>
+        </div>
+        <div class="side-card">
+          <h3>Tags</h3>
+          <div class="tags" style="margin-top:4px">
+            <span class="tag green">Minecraft</span>
+            ${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div class="side-card">
+          <h3>Need Help?</h3>
+          <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px">Join our Discord for fast support from the community.</p>
+          <button class="copy-btn" onclick="copyDiscord()"><i class="fab fa-discord"></i> Copy Discord Link</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ─── DOWNLOAD ─────────────────────────────────────────────────────────────────
+function downloadSkript(id) {
+  const s = SKRIPTS.find(x => x.id === id);
+  if (!s) return;
+  // Creates and downloads a placeholder .sk file
+  const content = `# ${s.name} — Lavender Skript Hub\n# Version: ${s.version}\n# Description: ${s.desc}\n\n# Place this file in /plugins/Skript/scripts/\n# Then run: /skript reload ${id}\n\n# ── Configuration ──\noptions:\n  prefix: "&7[&5Lavender&7] "\n\n# ── Main Skript ──\n`;
+  const blob = new Blob([content], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${id}.sk`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast(`Downloading ${s.name}.sk`);
+}
+
+// ─── COPY HELPERS ─────────────────────────────────────────────────────────────
+function copyDiscord() {
+  navigator.clipboard.writeText(DISCORD_LINK).then(() => {
+    const btn = document.getElementById('discord-btn');
+    if (btn) { btn.classList.add('copied'); btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="fab fa-discord"></i> Copy Discord Link'; }, 2500); }
+    showToast('Discord link copied!');
+  });
+}
+
+function copyEmail() {
+  navigator.clipboard.writeText(EMAIL_ADDR).then(() => {
+    const btn = document.getElementById('email-btn');
+    if (btn) { btn.classList.add('copied'); btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="fas fa-copy"></i> Copy Email Address'; }, 2500); }
+    showToast('Email address copied!');
+  });
+}
+
+// ─── TOAST ─────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ─── FAQ ──────────────────────────────────────────────────────────────────────
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+  if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+renderGrid();
+</script>
 </body>
 </html>
